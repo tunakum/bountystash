@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { ChevronRight, Search, Shield, Bug, Wrench, Globe, Code, Menu, X, Brain, Server, Database, Lock, Cpu, FileWarning } from "lucide-react"
+import { ChevronRight, Search, Shield, Bug, Globe, Menu, X, Brain, Server, Database, Lock } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface NavItem {
@@ -75,16 +75,7 @@ const navigation: NavItem[] = [
       { title: "2FA Bypass", href: "/docs/auth/2fa-bypass" },
     ],
   },
-  {
-    title: "Araçlar",
-    icon: <Wrench className="w-4 h-4" />,
-    items: [
-      { title: "Burp Suite", href: "/docs/araclar/burp-suite" },
-      { title: "Nuclei", href: "/docs/araclar/nuclei" },
-      { title: "FFUF", href: "/docs/araclar/ffuf" },
-      { title: "SQLMap", href: "/docs/araclar/sqlmap" },
-    ],
-  },
+  
 ]
 
 function NavSection({ item, onNavigate }: { item: NavItem; onNavigate?: () => void }) {

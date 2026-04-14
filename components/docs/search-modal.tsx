@@ -38,10 +38,8 @@ const searchData: SearchResult[] = [
   { title: "JWT Attacks", href: "/docs/auth/jwt", category: "Authentication", description: "JWT token zafiyetleri" },
   { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth", category: "Authentication" },
   { title: "2FA Bypass", href: "/docs/auth/2fa-bypass", category: "Authentication" },
-  // Tools
-  { title: "Burp Suite", href: "/docs/araclar/burp-suite", category: "Araçlar" },
-  { title: "Nuclei", href: "/docs/araclar/nuclei", category: "Araçlar" },
-  { title: "SQLMap", href: "/docs/araclar/sqlmap", category: "Araçlar" },
+  { title: "Session Management", href: "/docs/auth/session", category: "Authentication" },
+  { title: "Password Reset Flaws", href: "/docs/auth/password-reset", category: "Authentication" },
 ]
 
 export function SearchModal() {
