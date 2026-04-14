@@ -2,8 +2,6 @@
 
 Türkçe güvenlik zafiyetleri dokümantasyonu. Web, API ve AI/LLM güvenlik açıkları için kapsamlı payload koleksiyonu ve bypass teknikleri.
 
-[Demo](https://bountystash.vercel.app) | [Katkıda Bulun](#katkıda-bulunma)
-
 ---
 
 ## Özellikler
@@ -16,11 +14,11 @@ Türkçe güvenlik zafiyetleri dokümantasyonu. Web, API ve AI/LLM güvenlik aç
 
 ## Neden BountyStash?
 
-- Türkçe içerik - Tüm açıklamalar ve dipnotlar Türkçe
-- Geniş payload koleksiyonu - Her kategori için 100+ payload
-- Kopyala-yapıştır - Tek tıkla payload kopyalama
-- WAF bypass teknikleri - Gerçek dünya senaryoları
-- Modern UI - Linear.app tarzı premium arayüz
+- **Türkçe içerik** - Tüm açıklamalar ve dipnotlar Türkçe
+- **Geniş payload koleksiyonu** - Her kategori için 100+ payload
+- **Kopyala-yapıştır** - Tek tıkla payload kopyalama
+- **WAF bypass teknikleri** - Gerçek dünya senaryoları
+- **Modern arayüz** - Linear.app tarzı premium tasarım
 
 ## Teknolojiler
 
@@ -65,17 +63,17 @@ BountyStash/
 
 ## Katkıda Bulunma
 
-Katkılarınızı bekliyoruz! Yeni payload eklemek, hata düzeltmek veya çeviri yapmak için:
+Katkılarınızı bekliyoruz! Yeni payload eklemek, hata düzeltmek veya yeni zafiyet sayfası oluşturmak için:
 
 1. Bu repoyu fork edin
-2. Feature branch oluşturun (`git checkout -b feature/yeni-payload`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Yeni XSS payload eklendi'`)
-4. Branch'inizi push edin (`git push origin feature/yeni-payload`)
+2. Yeni bir branch oluşturun (`git checkout -b feature/yeni-payload`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Yeni XSS payloadları eklendi'`)
+4. Branch'i push edin (`git push origin feature/yeni-payload`)
 5. Pull Request açın
 
-### Payload Ekleme
+### Payload Formatı
 
-Payload eklerken şu formata uyun:
+Yeni payload eklerken şu formatı kullanın:
 
 ```typescript
 {
@@ -84,18 +82,17 @@ Payload eklerken şu formata uyun:
 }
 ```
 
-- `code`: Payload kodu (escape edilmeden)
-- `note`: Türkçe açıklama veya ipucu (opsiyonel)
+- `code`: Payload kodu
+- `note`: Türkçe açıklama veya ipucu (opsiyonel ama önerilir)
 
 ## Lisans
 
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
+[MIT](LICENSE)
 
 ## İletişim
 
-- GitHub: [@tunakum](https://github.com/tunakum)
-- Proje: [BountyStash](https://github.com/tunakum/BountyStash)
+GitHub: [@tunakum](https://github.com/tunakum)
 
 ---
 
-**Uyarı:** Bu dokümantasyon yalnızca eğitim amaçlıdır. Payloadları yalnızca izinli sistemlerde ve yasal bug bounty programlarında kullanın.
+**Yasal Uyarı:** Bu dokümantasyon yalnızca eğitim amaçlıdır. Payloadları yalnızca izinli sistemlerde ve yasal bug bounty programlarında kullanın. Yetkisiz sistemlere erişim yasa dışıdır.
