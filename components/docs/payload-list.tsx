@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, Copy, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -15,6 +15,13 @@ interface PayloadListProps {
   payloads: Payload[]
   initialShow?: number
   className?: string
+}
+
+// Safely escape HTML to prevent XSS when displaying payloads
+function escapeHtml(text: string): string {
+  const div = document.createElement('div')
+  div.textContent = text
+  return div.innerHTML
 }
 
 export function PayloadList({ title, payloads, initialShow = 5, className }: PayloadListProps) {
@@ -52,13 +59,17 @@ export function PayloadList({ title, payloads, initialShow = 5, className }: Pay
             >
               <div className="relative rounded-lg bg-card border border-border/50 overflow-hidden">
                 <div className="flex items-start">
-                  <code className="flex-1 block p-3 text-sm font-mono text-foreground/90 overflow-x-auto whitespace-pre">
-                    {payload.code}
-                  </code>
+                  <pre className="flex-1 block p-3 text-sm font-mono text-foreground/90 overflow-x-auto whitespace-pre m-0 bg-transparent">
+                    <code>{payload.code}</code>
+                  </pre>
                   <button
-                    onClick={() => copyToClipboard(payload.code, index)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      copyToClipboard(payload.code, index)
+                    }}
                     className="p-2 m-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-secondary/50"
-                    aria-label="Copy payload"
+                    aria-label="Payload kopyala"
                   >
                     {copiedIndex === index ? (
                       <Check className="w-4 h-4 text-green-400" />

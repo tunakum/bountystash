@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ArrowRight, Globe, Server, Brain, Database, Lock, Wrench } from "lucide-react"
+import { ArrowRight, Globe, Server, Brain, Database, Lock } from "lucide-react"
 import { TableOfContents } from "@/components/docs/table-of-contents"
 
 const tocItems = [
@@ -33,7 +33,7 @@ const categories = [
     id: "web",
     icon: Globe,
     title: "Web Zafiyetleri",
-    description: "XSS, SQL Injection, CSRF, SSRF ve daha fazlasi.",
+    description: "XSS, SQL Injection, CSRF, SSRF ve daha fazlası.",
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
     items: [
@@ -48,7 +48,7 @@ const categories = [
     id: "api",
     icon: Server,
     title: "API Zafiyetleri",
-    description: "OWASP API Top 10 ve modern API guvenlik aciklari.",
+    description: "OWASP API Top 10 ve modern API güvenlik açıkları.",
     color: "text-green-400",
     bgColor: "bg-green-500/10",
     items: [
@@ -63,7 +63,7 @@ const categories = [
     id: "ai",
     icon: Brain,
     title: "AI / LLM Zafiyetleri",
-    description: "OWASP LLM Top 10, prompt injection ve AI guvenlik riskleri.",
+    description: "OWASP LLM Top 10, prompt injection ve AI güvenlik riskleri.",
     color: "text-purple-400",
     bgColor: "bg-purple-500/10",
     items: [
@@ -78,7 +78,7 @@ const categories = [
     id: "injection",
     icon: Database,
     title: "Injection Zafiyetleri",
-    description: "Command, LDAP, NoSQL ve template injection saldiriari.",
+    description: "Command, LDAP, NoSQL ve template injection saldırıları.",
     color: "text-orange-400",
     bgColor: "bg-orange-500/10",
     items: [
@@ -93,7 +93,7 @@ const categories = [
     id: "auth",
     icon: Lock,
     title: "Authentication",
-    description: "OAuth, JWT, session ve kimlik dogrulama zafiyetleri.",
+    description: "OAuth, JWT, session ve kimlik doğrulama zafiyetleri.",
     color: "text-red-400",
     bgColor: "bg-red-500/10",
     items: [
@@ -120,11 +120,11 @@ export default function DocsPage() {
         {/* Hero */}
         <motion.div variants={fadeIn} className="mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4 text-balance">
-            Guvenlik Zafiyetleri Dokumantasyonu
+            Güvenlik Zafiyetleri Dokümantasyonu
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Web, API ve AI sistemlerindeki guvenlik zafiyetleri hakkinda kapsamli Turkce dokumantasyon. 
-            Her kategori detayli aciklamalar, ornekler ve bypass teknikleri icerir.
+            Web, API ve AI sistemlerindeki güvenlik zafiyetleri hakkında kapsamlı Türkçe dokümantasyon. 
+            Her kategori detaylı açıklamalar, örnekler ve bypass teknikleri içerir.
           </p>
         </motion.div>
 
@@ -180,41 +180,6 @@ export default function DocsPage() {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </motion.section>
-
-        {/* Tools Section */}
-        <motion.section variants={fadeIn} className="mt-12">
-          <div className="rounded-xl border border-border/50 bg-card p-5">
-            <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
-                <Wrench className="w-6 h-6" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold text-foreground mb-1">
-                  Araclar
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Guvenlik testleri icin kullanilan araclar ve kullanim kilavuzlari.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { title: "Burp Suite", href: "/docs/araclar/burp-suite" },
-                    { title: "Nuclei", href: "/docs/araclar/nuclei" },
-                    { title: "FFUF", href: "/docs/araclar/ffuf" },
-                    { title: "SQLMap", href: "/docs/araclar/sqlmap" },
-                  ].map((tool) => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      className="px-3 py-1.5 rounded-lg bg-secondary/50 text-sm text-foreground hover:bg-secondary transition-colors"
-                    >
-                      {tool.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </motion.section>
       </motion.article>

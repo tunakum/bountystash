@@ -1,11 +1,22 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ChevronRight, Search, Shield, Bug, Globe, Menu, X, Brain, Server, Database, Lock } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+
+// Hook to detect if user is on Mac
+function useIsMac() {
+  const [isMac, setIsMac] = useState(false)
+  
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0)
+  }, [])
+  
+  return isMac
+}
 
 interface NavItem {
   title: string
@@ -138,6 +149,8 @@ function NavSection({ item, onNavigate }: { item: NavItem; onNavigate?: () => vo
 }
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+  const isMac = useIsMac()
+  
   return (
     <div className="flex h-full flex-col">
       {/* Logo */}
@@ -146,7 +159,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
             <Shield className="w-4 h-4 text-primary" />
           </div>
-          <span className="font-semibold text-foreground">SecDocs.tr</span>
+          <span className="font-semibold text-foreground">BountyStash</span>
         </Link>
       </div>
 
@@ -156,7 +169,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           <Search className="w-4 h-4 mr-2" />
           <span>Ara...</span>
           <kbd className="ml-auto text-xs bg-background/50 px-1.5 py-0.5 rounded border border-border/50 font-mono hidden sm:block">
-            ⌘K
+            {isMac ? "⌘K" : "Ctrl+K"}
           </kbd>
         </button>
       </div>

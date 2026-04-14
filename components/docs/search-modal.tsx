@@ -14,32 +14,32 @@ interface SearchResult {
 }
 
 const searchData: SearchResult[] = [
-  // Web Vulnerabilities
-  { title: "XSS (Cross-Site Scripting)", href: "/docs/web/xss", category: "Web Zafiyetleri", description: "Reflected, Stored ve DOM XSS" },
-  { title: "SQL Injection", href: "/docs/web/sql-injection", category: "Web Zafiyetleri", description: "Union, Blind ve Error-based SQLi" },
-  { title: "CSRF", href: "/docs/web/csrf", category: "Web Zafiyetleri", description: "Cross-Site Request Forgery" },
-  { title: "SSRF", href: "/docs/web/ssrf", category: "Web Zafiyetleri", description: "Server-Side Request Forgery" },
-  { title: "XXE Injection", href: "/docs/web/xxe", category: "Web Zafiyetleri", description: "XML External Entity" },
-  // API Vulnerabilities
-  { title: "BOLA / IDOR", href: "/docs/api/bola-idor", category: "API Zafiyetleri", description: "Broken Object Level Authorization" },
-  { title: "Broken Authentication", href: "/docs/api/broken-auth", category: "API Zafiyetleri" },
-  { title: "GraphQL Security", href: "/docs/api/graphql", category: "API Zafiyetleri" },
-  { title: "Mass Assignment", href: "/docs/api/mass-assignment", category: "API Zafiyetleri" },
-  // AI/LLM Vulnerabilities  
-  { title: "OWASP LLM Top 10", href: "/docs/ai/owasp-llm-top-10", category: "AI / LLM Zafiyetleri", description: "LLM güvenlik riskleri" },
-  { title: "Prompt Injection", href: "/docs/ai/prompt-injection", category: "AI / LLM Zafiyetleri", description: "Direct ve indirect prompt injection" },
-  { title: "Jailbreaking", href: "/docs/ai/jailbreaking", category: "AI / LLM Zafiyetleri", description: "LLM kısıtlamalarını aşma" },
-  { title: "Data Poisoning", href: "/docs/ai/data-poisoning", category: "AI / LLM Zafiyetleri" },
-  // Injection
-  { title: "Command Injection", href: "/docs/injection/command", category: "Injection Zafiyetleri" },
+  // Web Zafiyetleri
+  { title: "XSS (Cross-Site Scripting)", href: "/docs/web/xss", category: "Web Zafiyetleri", description: "Reflected, Stored ve DOM XSS türleri" },
+  { title: "SQL Injection", href: "/docs/web/sql-injection", category: "Web Zafiyetleri", description: "Union, Blind ve Error-based SQLi teknikleri" },
+  { title: "CSRF", href: "/docs/web/csrf", category: "Web Zafiyetleri", description: "Cross-Site Request Forgery saldırıları" },
+  { title: "SSRF", href: "/docs/web/ssrf", category: "Web Zafiyetleri", description: "Server-Side Request Forgery açıkları" },
+  { title: "XXE Injection", href: "/docs/web/xxe", category: "Web Zafiyetleri", description: "XML External Entity zafiyetleri" },
+  // API Zafiyetleri
+  { title: "BOLA / IDOR", href: "/docs/api/bola-idor", category: "API Zafiyetleri", description: "Yetkilendirme atlatma açıkları" },
+  { title: "Broken Authentication", href: "/docs/api/broken-auth", category: "API Zafiyetleri", description: "Kırık kimlik doğrulama" },
+  { title: "GraphQL Security", href: "/docs/api/graphql", category: "API Zafiyetleri", description: "GraphQL güvenlik açıkları" },
+  { title: "Mass Assignment", href: "/docs/api/mass-assignment", category: "API Zafiyetleri", description: "Toplu atama zafiyetleri" },
+  // AI/LLM Zafiyetleri  
+  { title: "OWASP LLM Top 10", href: "/docs/ai/owasp-llm-top-10", category: "AI / LLM Zafiyetleri", description: "LLM güvenlik riskleri özeti" },
+  { title: "Prompt Injection", href: "/docs/ai/prompt-injection", category: "AI / LLM Zafiyetleri", description: "Doğrudan ve dolaylı prompt enjeksiyonu" },
+  { title: "Jailbreaking", href: "/docs/ai/jailbreaking", category: "AI / LLM Zafiyetleri", description: "LLM kısıtlamalarını aşma teknikleri" },
+  { title: "Data Poisoning", href: "/docs/ai/data-poisoning", category: "AI / LLM Zafiyetleri", description: "Veri zehirleme saldırıları" },
+  // Injection Zafiyetleri
+  { title: "Command Injection", href: "/docs/injection/command", category: "Injection Zafiyetleri", description: "Komut enjeksiyonu açıkları" },
   { title: "SSTI", href: "/docs/injection/ssti", category: "Injection Zafiyetleri", description: "Server-Side Template Injection" },
-  { title: "NoSQL Injection", href: "/docs/injection/nosql", category: "Injection Zafiyetleri" },
-  // Auth
-  { title: "JWT Attacks", href: "/docs/auth/jwt", category: "Authentication", description: "JWT token zafiyetleri" },
-  { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth", category: "Authentication" },
-  { title: "2FA Bypass", href: "/docs/auth/2fa-bypass", category: "Authentication" },
-  { title: "Session Management", href: "/docs/auth/session", category: "Authentication" },
-  { title: "Password Reset Flaws", href: "/docs/auth/password-reset", category: "Authentication" },
+  { title: "NoSQL Injection", href: "/docs/injection/nosql", category: "Injection Zafiyetleri", description: "NoSQL veritabanı enjeksiyonu" },
+  // Authentication
+  { title: "JWT Attacks", href: "/docs/auth/jwt", category: "Authentication", description: "JWT token saldırıları" },
+  { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth", category: "Authentication", description: "OAuth protokol açıkları" },
+  { title: "2FA Bypass", href: "/docs/auth/2fa-bypass", category: "Authentication", description: "İki faktörlü doğrulama atlatma" },
+  { title: "Session Management", href: "/docs/auth/session", category: "Authentication", description: "Oturum yönetimi zafiyetleri" },
+  { title: "Password Reset Flaws", href: "/docs/auth/password-reset", category: "Authentication", description: "Şifre sıfırlama açıkları" },
 ]
 
 export function SearchModal() {
@@ -137,7 +137,7 @@ export function SearchModal() {
                   <Search className="h-5 w-5 text-muted-foreground" />
                   <input
                     type="text"
-                    placeholder="Dokümantasyonda ara..."
+                    placeholder="Zafiyet veya payload ara..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     className="flex-1 bg-transparent py-4 text-foreground placeholder:text-muted-foreground focus:outline-none"

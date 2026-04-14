@@ -20,15 +20,17 @@ export function Header() {
         {/* Actions */}
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hidden sm:flex" asChild>
-            <Link href="https://github.com" target="_blank">
+            <Link href="https://github.com/tunakum/BountyStash" target="_blank">
               <Github className="w-4 h-4 sm:mr-2" />
               <span className="hidden md:inline">GitHub</span>
             </Link>
           </Button>
-          <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            <span className="hidden sm:inline">Katkıda Bulun</span>
-            <span className="sm:hidden">Katkı</span>
-            <ExternalLink className="w-3 h-3 ml-2" />
+          <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground" asChild>
+            <Link href="https://github.com/tunakum/BountyStash" target="_blank">
+              <span className="hidden sm:inline">Katkıda Bulun</span>
+              <span className="sm:hidden">Katkı</span>
+              <ExternalLink className="w-3 h-3 ml-2" />
+            </Link>
           </Button>
         </div>
       </div>

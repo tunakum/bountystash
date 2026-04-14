@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Bug Bounty Rehberi | Türkçe Dokümantasyon',
-  description: 'Bug bounty avcıları için kapsamlı Türkçe dokümantasyon. Güvenlik açıkları, araçlar ve teknikler hakkında detaylı rehberler.',
+  title: 'BountyStash | Güvenlik Zafiyetleri Dokümantasyonu',
+  description: 'Web, API ve AI güvenlik zafiyetleri için kapsamlı Türkçe dokümantasyon. XSS, SQL Injection, Prompt Injection payload ve bypass teknikleri.',
   generator: 'v0.app',
   icons: {
     icon: [

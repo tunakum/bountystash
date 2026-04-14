@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRef } from "react"
 import { 
   Shield, ArrowRight, Bug, Zap, 
-  Globe, Server, Brain, Database, Lock, ChevronRight
+  Globe, Server, Brain, Database, Lock, ChevronRight, Github
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -27,7 +27,7 @@ const categories = [
   {
     icon: Globe,
     title: "Web Zafiyetleri",
-    description: "XSS, SQL Injection, CSRF, SSRF ve diger web guvenlik aciklari.",
+    description: "XSS, SQL Injection, CSRF, SSRF ve diğer web güvenlik açıkları.",
     href: "/docs/web/xss",
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
@@ -35,7 +35,7 @@ const categories = [
   {
     icon: Server,
     title: "API Zafiyetleri",
-    description: "OWASP API Top 10, BOLA, IDOR, GraphQL guvenlik aciklari.",
+    description: "OWASP API Top 10, BOLA, IDOR, GraphQL güvenlik açıkları.",
     href: "/docs/api/bola-idor",
     color: "text-green-400",
     bgColor: "bg-green-500/10",
@@ -51,7 +51,7 @@ const categories = [
   {
     icon: Database,
     title: "Injection Zafiyetleri",
-    description: "Command, NoSQL, LDAP ve template injection saldirilari.",
+    description: "Command, NoSQL, LDAP ve template injection saldırıları.",
     href: "/docs/injection/command",
     color: "text-orange-400",
     bgColor: "bg-orange-500/10",
@@ -59,7 +59,7 @@ const categories = [
   {
     icon: Lock,
     title: "Authentication",
-    description: "OAuth, JWT, session ve kimlik dogrulama zafiyetleri.",
+    description: "OAuth, JWT, session ve kimlik doğrulama zafiyetleri.",
     href: "/docs/auth/jwt",
     color: "text-red-400",
     bgColor: "bg-red-500/10",
@@ -67,9 +67,9 @@ const categories = [
 ]
 
 const stats = [
-  { value: "50+", label: "Zafiyet Turu" },
-  { value: "100+", label: "Payload Ornegi" },
-  { value: "100%", label: "Turkce Icerik" },
+  { value: "50+", label: "Zafiyet Türü" },
+  { value: "500+", label: "Payload Örneği" },
+  { value: "100%", label: "Türkçe İçerik" },
 ]
 
 export default function HomePage() {
@@ -96,19 +96,27 @@ export default function HomePage() {
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
               <Shield className="w-4 h-4 text-primary" />
             </div>
-            <span className="font-semibold text-foreground">SecDocs.tr</span>
+            <span className="font-semibold text-foreground">BountyStash</span>
           </Link>
           
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <Link 
+              href="https://github.com/tunakum/BountyStash" 
+              target="_blank"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:flex items-center gap-2"
+            >
+              <Github className="w-4 h-4" />
+              GitHub
+            </Link>
             <Link 
               href="/docs" 
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Dokumantasyon
+              Dokümantasyon
             </Link>
             <Button size="sm" asChild>
               <Link href="/docs">
-                Kesfet
+                Keşfet
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
@@ -145,7 +153,7 @@ export default function HomePage() {
             {/* Badge */}
             <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8">
               <Bug className="w-4 h-4" />
-              <span>Guvenlik Zafiyetleri Dokumantasyonu</span>
+              <span>Güvenlik Zafiyetleri Dokümantasyonu</span>
             </motion.div>
 
             {/* Title */}
@@ -155,7 +163,7 @@ export default function HomePage() {
             >
               Zafiyetleri
               <br />
-              <span className="text-primary">Anlayin</span>
+              <span className="text-primary">Anlayın</span>
             </motion.h1>
 
             {/* Description */}
@@ -163,16 +171,16 @@ export default function HomePage() {
               variants={fadeIn}
               className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed text-pretty"
             >
-              Web, API ve AI sistemlerindeki guvenlik zafiyetleri hakkinda 
-              kapsamli Turkce dokumantasyon. Detayli aciklamalar, ornekler 
-              ve bypass teknikleri.
+              Web, API ve AI sistemlerindeki güvenlik zafiyetleri hakkında 
+              kapsamlı Türkçe dokümantasyon. Payload&apos;lar, bypass teknikleri 
+              ve pratik örnekler.
             </motion.p>
 
             {/* CTA */}
             <motion.div variants={fadeIn} className="flex items-center justify-center gap-4">
               <Button size="lg" asChild className="group">
                 <Link href="/docs">
-                  Dokumantasyona Git
+                  Dokümantasyona Git
                   <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
@@ -229,8 +237,8 @@ export default function HomePage() {
               Zafiyet Kategorileri
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Modern sistemlerdeki guvenlik zafiyetlerini kategorilere ayrilmis 
-              detayli dokumantasyonlarla oğrenin.
+              Modern sistemlerdeki güvenlik zafiyetlerini kategorilere ayrılmış 
+              detaylı dokümantasyonlarla öğrenin.
             </p>
           </motion.div>
 
@@ -275,17 +283,17 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Pratik Ornekler
+                Pratik Örnekler
               </h2>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Her zafiyet turu icin gercek dunya ornekleri, payload&apos;lar ve 
-                bypass teknikleri. Teoriden pratige gecisi kolaylastirin.
+                Her zafiyet türü için gerçek dünya örnekleri, payload&apos;lar ve 
+                bypass teknikleri. Teoriden pratiğe geçişi kolaylaştırın.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
-                  "Detayli aciklamalar ve kod ornekleri",
-                  "Bypass ve filter atlama teknikleri",
-                  "Savunma yontemleri ve best practice&apos;ler",
+                  "Detaylı açıklamalar ve kod örnekleri",
+                  "Bypass ve filter atlatma teknikleri",
+                  "Savunma yöntemleri ve best practice'ler",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-muted-foreground">
                     <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
@@ -297,7 +305,7 @@ export default function HomePage() {
               </ul>
               <Button asChild>
                 <Link href="/docs/ai/prompt-injection">
-                  Prompt Injection Ornekleri
+                  Prompt Injection Örnekleri
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
@@ -346,13 +354,23 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="border-t border-border/50 py-8 px-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <Shield className="w-4 h-4 text-primary" />
-            <span>SecDocs.tr</span>
+            <span>BountyStash</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <Link 
+              href="https://github.com/tunakum/BountyStash" 
+              target="_blank"
+              className="hover:text-foreground transition-colors flex items-center gap-2"
+            >
+              <Github className="w-4 h-4" />
+              GitHub
+            </Link>
           </div>
           <div>
-            Guvenlik Zafiyetleri Dokumantasyonu
+            Güvenlik Zafiyetleri Dokümantasyonu
           </div>
         </div>
       </footer>
