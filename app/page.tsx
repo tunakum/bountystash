@@ -108,15 +108,9 @@ export default function HomePage() {
               <Github className="w-4 h-4" />
               GitHub
             </Link>
-            <Link 
-              href="/docs" 
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Dokümantasyon
-            </Link>
             <Button size="sm" asChild>
               <Link href="/docs">
-                Keşfet
+                Dokümantasyon
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
