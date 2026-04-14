@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, ExternalLink, Globe } from "lucide-react"
+import { ArrowLeft, ArrowRight, Globe } from "lucide-react"
 import { CodeBlock } from "@/components/docs/code-block"
 import { Callout } from "@/components/docs/callout"
 import { TableOfContents } from "@/components/docs/table-of-contents"
@@ -45,17 +45,9 @@ export default function XSSPage() {
       >
         {/* Header */}
         <motion.div variants={fadeIn} className="mb-8">
-          <Link 
-            href="/docs" 
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Dokümantasyon
-          </Link>
-          
-          <div className="flex items-center gap-2 text-primary text-sm font-medium mb-4">
+          <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
             <Globe className="w-4 h-4" />
-            <span>Web Güvenliği</span>
+            <span>Web Zafiyetleri</span>
           </div>
           
           <h1 id="xss-nedir" className="text-4xl font-bold text-foreground mb-4 scroll-mt-20">

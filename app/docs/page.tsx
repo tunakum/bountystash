@@ -2,16 +2,16 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ArrowRight, Shield, Bug, Target, Wrench, Globe, Code, Zap, BookOpen } from "lucide-react"
-import { CodeBlock } from "@/components/docs/code-block"
-import { Callout } from "@/components/docs/callout"
+import { ArrowRight, Globe, Server, Brain, Database, Lock, Wrench } from "lucide-react"
 import { TableOfContents } from "@/components/docs/table-of-contents"
 
 const tocItems = [
-  { id: "giris", title: "Giriş", level: 2 },
-  { id: "neden-bug-bounty", title: "Neden Bug Bounty?", level: 2 },
-  { id: "hizli-baslangic", title: "Hızlı Başlangıç", level: 2 },
-  { id: "onerilen-yol-haritasi", title: "Önerilen Yol Haritası", level: 2 },
+  { id: "zafiyetler", title: "Zafiyet Kategorileri", level: 2 },
+  { id: "web", title: "Web Zafiyetleri", level: 3 },
+  { id: "api", title: "API Zafiyetleri", level: 3 },
+  { id: "ai", title: "AI/LLM Zafiyetleri", level: 3 },
+  { id: "injection", title: "Injection Zafiyetleri", level: 3 },
+  { id: "auth", title: "Authentication", level: 3 },
 ]
 
 const fadeIn = {
@@ -28,30 +28,81 @@ const stagger = {
   },
 }
 
-const features = [
+const categories = [
   {
+    id: "web",
     icon: Globe,
-    title: "Web Güvenliği",
-    description: "XSS, SQL Injection, CSRF ve daha fazlası hakkında detaylı rehberler.",
-    href: "/docs/web/xss",
+    title: "Web Zafiyetleri",
+    description: "XSS, SQL Injection, CSRF, SSRF ve daha fazlasi.",
+    color: "text-blue-400",
+    bgColor: "bg-blue-500/10",
+    items: [
+      { title: "XSS (Cross-Site Scripting)", href: "/docs/web/xss" },
+      { title: "SQL Injection", href: "/docs/web/sql-injection" },
+      { title: "CSRF", href: "/docs/web/csrf" },
+      { title: "SSRF", href: "/docs/web/ssrf" },
+      { title: "XXE Injection", href: "/docs/web/xxe" },
+    ],
   },
   {
-    icon: Code,
-    title: "API Güvenliği",
-    description: "BOLA, IDOR, Authentication bypass ve GraphQL güvenliği.",
-    href: "/docs/api/bola-idor",
+    id: "api",
+    icon: Server,
+    title: "API Zafiyetleri",
+    description: "OWASP API Top 10 ve modern API guvenlik aciklari.",
+    color: "text-green-400",
+    bgColor: "bg-green-500/10",
+    items: [
+      { title: "BOLA / IDOR", href: "/docs/api/bola-idor" },
+      { title: "Broken Authentication", href: "/docs/api/broken-auth" },
+      { title: "Mass Assignment", href: "/docs/api/mass-assignment" },
+      { title: "GraphQL Security", href: "/docs/api/graphql" },
+      { title: "Rate Limiting", href: "/docs/api/rate-limiting" },
+    ],
   },
   {
-    icon: Wrench,
-    title: "Araçlar",
-    description: "Burp Suite, Nuclei, FFUF gibi popüler araçların kullanımı.",
-    href: "/docs/araclar/burp-suite",
+    id: "ai",
+    icon: Brain,
+    title: "AI / LLM Zafiyetleri",
+    description: "OWASP LLM Top 10, prompt injection ve AI guvenlik riskleri.",
+    color: "text-purple-400",
+    bgColor: "bg-purple-500/10",
+    items: [
+      { title: "OWASP LLM Top 10", href: "/docs/ai/owasp-llm-top-10" },
+      { title: "Prompt Injection", href: "/docs/ai/prompt-injection" },
+      { title: "Jailbreaking", href: "/docs/ai/jailbreaking" },
+      { title: "Data Poisoning", href: "/docs/ai/data-poisoning" },
+      { title: "Insecure Output", href: "/docs/ai/insecure-output" },
+    ],
   },
   {
-    icon: Target,
-    title: "Metodoloji",
-    description: "Keşiften rapora, adım adım bug hunting metodolojisi.",
-    href: "/docs/metodoloji/kesif",
+    id: "injection",
+    icon: Database,
+    title: "Injection Zafiyetleri",
+    description: "Command, LDAP, NoSQL ve template injection saldiriari.",
+    color: "text-orange-400",
+    bgColor: "bg-orange-500/10",
+    items: [
+      { title: "Command Injection", href: "/docs/injection/command" },
+      { title: "NoSQL Injection", href: "/docs/injection/nosql" },
+      { title: "SSTI (Template Injection)", href: "/docs/injection/ssti" },
+      { title: "LDAP Injection", href: "/docs/injection/ldap" },
+      { title: "Header Injection", href: "/docs/injection/header" },
+    ],
+  },
+  {
+    id: "auth",
+    icon: Lock,
+    title: "Authentication",
+    description: "OAuth, JWT, session ve kimlik dogrulama zafiyetleri.",
+    color: "text-red-400",
+    bgColor: "bg-red-500/10",
+    items: [
+      { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth" },
+      { title: "JWT Attacks", href: "/docs/auth/jwt" },
+      { title: "Session Management", href: "/docs/auth/session" },
+      { title: "Password Reset Flaws", href: "/docs/auth/password-reset" },
+      { title: "2FA Bypass", href: "/docs/auth/2fa-bypass" },
+    ],
   },
 ]
 
@@ -68,174 +119,100 @@ export default function DocsPage() {
       >
         {/* Hero */}
         <motion.div variants={fadeIn} className="mb-12">
-          <div className="flex items-center gap-2 text-primary text-sm font-medium mb-4">
-            <Shield className="w-4 h-4" />
-            <span>Dokümantasyon</span>
-          </div>
-          <h1 id="giris" className="text-4xl font-bold text-foreground mb-4 text-balance">
-            Bug Bounty Rehberi
+          <h1 className="text-4xl font-bold text-foreground mb-4 text-balance">
+            Guvenlik Zafiyetleri Dokumantasyonu
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Türkçe olarak hazırlanmış kapsamlı bug bounty dokümantasyonu. Güvenlik 
-            açıklarını bulmayı, analiz etmeyi ve raporlamayı öğrenin.
+            Web, API ve AI sistemlerindeki guvenlik zafiyetleri hakkinda kapsamli Turkce dokumantasyon. 
+            Her kategori detayli aciklamalar, ornekler ve bypass teknikleri icerir.
           </p>
         </motion.div>
 
-        {/* Quick Links */}
-        <motion.div variants={fadeIn} className="grid gap-4 md:grid-cols-2 not-prose mb-12">
-          {features.map((feature, i) => (
-            <Link
-              key={feature.title}
-              href={feature.href}
-              className="group relative p-5 rounded-xl border border-border/50 bg-card hover:bg-secondary/30 transition-all duration-300 hover:border-primary/30"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-5 h-5" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                    {feature.title}
-                    <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </motion.div>
-
-        {/* Why Bug Bounty */}
-        <motion.section variants={fadeIn}>
-          <h2 id="neden-bug-bounty" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">
-            Neden Bug Bounty?
-          </h2>
-          <p className="text-muted-foreground leading-relaxed mb-4">
-            Bug bounty programları, şirketlerin güvenlik araştırmacılarını ödüllendirerek 
-            sistemlerindeki güvenlik açıklarını keşfetmelerini sağlar. Bu, hem şirketler 
-            hem de güvenlik araştırmacıları için kazan-kazan bir durumdur.
-          </p>
-          
-          <div className="grid gap-3 md:grid-cols-3 not-prose mb-6">
-            {[
-              { icon: "💰", title: "Finansal Kazanç", desc: "Kritik açıklar için yüksek ödüller" },
-              { icon: "📚", title: "Sürekli Öğrenme", desc: "Her hedef yeni bir öğrenme fırsatı" },
-              { icon: "🌍", title: "Global Topluluk", desc: "Dünya çapında araştırmacılarla bağlantı" },
-            ].map((item) => (
-              <div key={item.title} className="p-4 rounded-lg bg-secondary/30 border border-border/50">
-                <div className="text-2xl mb-2">{item.icon}</div>
-                <div className="font-medium text-foreground mb-1">{item.title}</div>
-                <div className="text-sm text-muted-foreground">{item.desc}</div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Quick Start */}
-        <motion.section variants={fadeIn}>
-          <h2 id="hizli-baslangic" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">
-            Hızlı Başlangıç
+        {/* Categories */}
+        <motion.section variants={fadeIn} id="zafiyetler">
+          <h2 className="text-2xl font-semibold text-foreground mb-6 scroll-mt-20">
+            Zafiyet Kategorileri
           </h2>
           
-          <Callout type="tip" title="Başlamadan Önce">
-            Bug bounty&apos;e başlamadan önce temel web teknolojilerini (HTTP, HTML, JavaScript) 
-            ve ağ protokollerini anlamanız önerilir.
-          </Callout>
-
-          <p className="text-muted-foreground leading-relaxed mb-4">
-            İlk adım olarak, bir bug bounty platformuna kaydolun ve başlangıç seviyesi 
-            programları keşfedin. İşte temel araçları kurarak başlayabilirsiniz:
-          </p>
-
-          <CodeBlock
-            language="bash"
-            filename="Terminal"
-            code={`# Subfinder kurulumu - subdomain keşfi için
-go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-
-# HTTPX kurulumu - HTTP probing için
-go install github.com/projectdiscovery/httpx/cmd/httpx@latest
-
-# Nuclei kurulumu - vulnerability scanning için
-go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest`}
-          />
-
-          <Callout type="warning" title="Yasal Uyarı">
-            Sadece izin verilen hedefleri test edin. İzinsiz güvenlik testi yapmak 
-            yasadışıdır ve ciddi yasal sonuçlara yol açabilir.
-          </Callout>
-        </motion.section>
-
-        {/* Roadmap */}
-        <motion.section variants={fadeIn}>
-          <h2 id="onerilen-yol-haritasi" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">
-            Önerilen Yol Haritası
-          </h2>
-          
-          <div className="not-prose space-y-4 mb-8">
-            {[
-              {
-                step: "01",
-                title: "Temel Bilgileri Öğrenin",
-                desc: "Web teknolojileri, HTTP protokolü ve temel güvenlik kavramları",
-                status: "başlangıç",
-              },
-              {
-                step: "02",
-                title: "Araçları Tanıyın",
-                desc: "Burp Suite, browser DevTools ve temel recon araçları",
-                status: "temel",
-              },
-              {
-                step: "03",
-                title: "Açık Türlerini Anlayın",
-                desc: "XSS, SQLi, CSRF, IDOR gibi yaygın açık türleri",
-                status: "orta",
-              },
-              {
-                step: "04",
-                title: "Pratik Yapın",
-                desc: "Lab ortamları ve VDP programları ile deneyim kazanın",
-                status: "pratik",
-              },
-              {
-                step: "05",
-                title: "Gerçek Hedeflere Geçin",
-                desc: "Bug bounty programlarında aktif olarak hunting yapın",
-                status: "ileri",
-              },
-            ].map((item, i) => (
-              <div
-                key={item.step}
-                className="flex gap-4 p-4 rounded-lg border border-border/50 bg-card hover:bg-secondary/20 transition-colors group"
+          <div className="not-prose space-y-8">
+            {categories.map((category, i) => (
+              <motion.div
+                key={category.id}
+                id={category.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="scroll-mt-20"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono font-bold group-hover:bg-primary/20 transition-colors">
-                  {item.step}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-foreground">{item.title}</h3>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">
-                      {item.status}
-                    </span>
+                <div className="rounded-xl border border-border/50 bg-card overflow-hidden">
+                  {/* Category Header */}
+                  <div className="p-5 border-b border-border/50">
+                    <div className="flex items-start gap-4">
+                      <div className={`flex items-center justify-center w-12 h-12 rounded-xl ${category.bgColor} ${category.color}`}>
+                        <category.icon className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-foreground mb-1">
+                          {category.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {category.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  
+                  {/* Category Items */}
+                  <div className="divide-y divide-border/50">
+                    {category.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="flex items-center justify-between px-5 py-3 hover:bg-secondary/30 transition-colors group"
+                      >
+                        <span className="text-foreground group-hover:text-primary transition-colors">
+                          {item.title}
+                        </span>
+                        <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
+        </motion.section>
 
-          <div className="flex items-center gap-4 p-4 rounded-lg bg-primary/5 border border-primary/20">
-            <Zap className="w-6 h-6 text-primary" />
-            <div>
-              <div className="font-medium text-foreground">Hazır mısınız?</div>
-              <div className="text-sm text-muted-foreground">
-                <Link href="/docs/giris/bug-bounty-nedir" className="text-primary hover:underline">
-                  Bug Bounty Nedir?
-                </Link>
-                {" "}bölümü ile başlayın.
+        {/* Tools Section */}
+        <motion.section variants={fadeIn} className="mt-12">
+          <div className="rounded-xl border border-border/50 bg-card p-5">
+            <div className="flex items-start gap-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
+                <Wrench className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold text-foreground mb-1">
+                  Araclar
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Guvenlik testleri icin kullanilan araclar ve kullanim kilavuzlari.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { title: "Burp Suite", href: "/docs/araclar/burp-suite" },
+                    { title: "Nuclei", href: "/docs/araclar/nuclei" },
+                    { title: "FFUF", href: "/docs/araclar/ffuf" },
+                    { title: "SQLMap", href: "/docs/araclar/sqlmap" },
+                  ].map((tool) => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      className="px-3 py-1.5 rounded-lg bg-secondary/50 text-sm text-foreground hover:bg-secondary transition-colors"
+                    >
+                      {tool.title}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

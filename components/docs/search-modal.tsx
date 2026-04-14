@@ -14,18 +14,34 @@ interface SearchResult {
 }
 
 const searchData: SearchResult[] = [
-  { title: "Giriş", href: "/docs", category: "Başlangıç", description: "Bug bounty dokümantasyonuna hoş geldiniz" },
-  { title: "Bug Bounty Nedir?", href: "/docs/giris/bug-bounty-nedir", category: "Başlangıç" },
-  { title: "Nasıl Başlanır?", href: "/docs/giris/nasil-baslanir", category: "Başlangıç" },
-  { title: "XSS Saldırıları", href: "/docs/web/xss", category: "Web Güvenliği", description: "Cross-Site Scripting açıkları" },
-  { title: "SQL Injection", href: "/docs/web/sql-injection", category: "Web Güvenliği" },
-  { title: "CSRF Açıkları", href: "/docs/web/csrf", category: "Web Güvenliği" },
-  { title: "SSRF Saldırıları", href: "/docs/web/ssrf", category: "Web Güvenliği" },
-  { title: "BOLA/IDOR", href: "/docs/api/bola-idor", category: "API Güvenliği" },
-  { title: "Authentication Bypass", href: "/docs/api/auth-bypass", category: "API Güvenliği" },
+  // Web Vulnerabilities
+  { title: "XSS (Cross-Site Scripting)", href: "/docs/web/xss", category: "Web Zafiyetleri", description: "Reflected, Stored ve DOM XSS" },
+  { title: "SQL Injection", href: "/docs/web/sql-injection", category: "Web Zafiyetleri", description: "Union, Blind ve Error-based SQLi" },
+  { title: "CSRF", href: "/docs/web/csrf", category: "Web Zafiyetleri", description: "Cross-Site Request Forgery" },
+  { title: "SSRF", href: "/docs/web/ssrf", category: "Web Zafiyetleri", description: "Server-Side Request Forgery" },
+  { title: "XXE Injection", href: "/docs/web/xxe", category: "Web Zafiyetleri", description: "XML External Entity" },
+  // API Vulnerabilities
+  { title: "BOLA / IDOR", href: "/docs/api/bola-idor", category: "API Zafiyetleri", description: "Broken Object Level Authorization" },
+  { title: "Broken Authentication", href: "/docs/api/broken-auth", category: "API Zafiyetleri" },
+  { title: "GraphQL Security", href: "/docs/api/graphql", category: "API Zafiyetleri" },
+  { title: "Mass Assignment", href: "/docs/api/mass-assignment", category: "API Zafiyetleri" },
+  // AI/LLM Vulnerabilities  
+  { title: "OWASP LLM Top 10", href: "/docs/ai/owasp-llm-top-10", category: "AI / LLM Zafiyetleri", description: "LLM güvenlik riskleri" },
+  { title: "Prompt Injection", href: "/docs/ai/prompt-injection", category: "AI / LLM Zafiyetleri", description: "Direct ve indirect prompt injection" },
+  { title: "Jailbreaking", href: "/docs/ai/jailbreaking", category: "AI / LLM Zafiyetleri", description: "LLM kısıtlamalarını aşma" },
+  { title: "Data Poisoning", href: "/docs/ai/data-poisoning", category: "AI / LLM Zafiyetleri" },
+  // Injection
+  { title: "Command Injection", href: "/docs/injection/command", category: "Injection Zafiyetleri" },
+  { title: "SSTI", href: "/docs/injection/ssti", category: "Injection Zafiyetleri", description: "Server-Side Template Injection" },
+  { title: "NoSQL Injection", href: "/docs/injection/nosql", category: "Injection Zafiyetleri" },
+  // Auth
+  { title: "JWT Attacks", href: "/docs/auth/jwt", category: "Authentication", description: "JWT token zafiyetleri" },
+  { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth", category: "Authentication" },
+  { title: "2FA Bypass", href: "/docs/auth/2fa-bypass", category: "Authentication" },
+  // Tools
   { title: "Burp Suite", href: "/docs/araclar/burp-suite", category: "Araçlar" },
   { title: "Nuclei", href: "/docs/araclar/nuclei", category: "Araçlar" },
-  { title: "Keşif Aşaması", href: "/docs/metodoloji/kesif", category: "Metodoloji" },
+  { title: "SQLMap", href: "/docs/araclar/sqlmap", category: "Araçlar" },
 ]
 
 export function SearchModal() {

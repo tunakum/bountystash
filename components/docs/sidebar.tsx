@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { ChevronRight, Search, Shield, Bug, Target, Wrench, BookOpen, Globe, Code, Menu, X } from "lucide-react"
+import { ChevronRight, Search, Shield, Bug, Wrench, Globe, Code, Menu, X, Brain, Server, Database, Lock, Cpu, FileWarning } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface NavItem {
@@ -16,34 +16,63 @@ interface NavItem {
 
 const navigation: NavItem[] = [
   {
-    title: "Başlangıç",
-    icon: <BookOpen className="w-4 h-4" />,
-    items: [
-      { title: "Giriş", href: "/docs" },
-      { title: "Bug Bounty Nedir?", href: "/docs/giris/bug-bounty-nedir" },
-      { title: "Nasıl Başlanır?", href: "/docs/giris/nasil-baslanir" },
-      { title: "Platform Seçimi", href: "/docs/giris/platform-secimi" },
-    ],
-  },
-  {
-    title: "Web Güvenliği",
+    title: "Web Zafiyetleri",
     icon: <Globe className="w-4 h-4" />,
     items: [
-      { title: "XSS Saldırıları", href: "/docs/web/xss" },
+      { title: "XSS (Cross-Site Scripting)", href: "/docs/web/xss" },
       { title: "SQL Injection", href: "/docs/web/sql-injection" },
-      { title: "CSRF Açıkları", href: "/docs/web/csrf" },
-      { title: "SSRF Saldırıları", href: "/docs/web/ssrf" },
+      { title: "CSRF", href: "/docs/web/csrf" },
+      { title: "SSRF", href: "/docs/web/ssrf" },
       { title: "XXE Injection", href: "/docs/web/xxe" },
+      { title: "Insecure Deserialization", href: "/docs/web/deserialization" },
+      { title: "File Upload", href: "/docs/web/file-upload" },
     ],
   },
   {
-    title: "API Güvenliği",
-    icon: <Code className="w-4 h-4" />,
+    title: "API Zafiyetleri",
+    icon: <Server className="w-4 h-4" />,
     items: [
-      { title: "BOLA/IDOR", href: "/docs/api/bola-idor" },
-      { title: "Authentication Bypass", href: "/docs/api/auth-bypass" },
+      { title: "BOLA / IDOR", href: "/docs/api/bola-idor" },
+      { title: "Broken Authentication", href: "/docs/api/broken-auth" },
+      { title: "BOPLA", href: "/docs/api/bopla" },
+      { title: "Mass Assignment", href: "/docs/api/mass-assignment" },
       { title: "Rate Limiting", href: "/docs/api/rate-limiting" },
-      { title: "GraphQL Güvenliği", href: "/docs/api/graphql" },
+      { title: "GraphQL Security", href: "/docs/api/graphql" },
+      { title: "REST API Security", href: "/docs/api/rest" },
+    ],
+  },
+  {
+    title: "AI / LLM Zafiyetleri",
+    icon: <Brain className="w-4 h-4" />,
+    items: [
+      { title: "OWASP LLM Top 10", href: "/docs/ai/owasp-llm-top-10" },
+      { title: "Prompt Injection", href: "/docs/ai/prompt-injection" },
+      { title: "Jailbreaking", href: "/docs/ai/jailbreaking" },
+      { title: "Data Poisoning", href: "/docs/ai/data-poisoning" },
+      { title: "Model Theft", href: "/docs/ai/model-theft" },
+      { title: "Insecure Output", href: "/docs/ai/insecure-output" },
+    ],
+  },
+  {
+    title: "Injection Zafiyetleri",
+    icon: <Database className="w-4 h-4" />,
+    items: [
+      { title: "Command Injection", href: "/docs/injection/command" },
+      { title: "LDAP Injection", href: "/docs/injection/ldap" },
+      { title: "NoSQL Injection", href: "/docs/injection/nosql" },
+      { title: "Template Injection (SSTI)", href: "/docs/injection/ssti" },
+      { title: "Header Injection", href: "/docs/injection/header" },
+    ],
+  },
+  {
+    title: "Authentication",
+    icon: <Lock className="w-4 h-4" />,
+    items: [
+      { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth" },
+      { title: "JWT Attacks", href: "/docs/auth/jwt" },
+      { title: "Session Management", href: "/docs/auth/session" },
+      { title: "Password Reset Flaws", href: "/docs/auth/password-reset" },
+      { title: "2FA Bypass", href: "/docs/auth/2fa-bypass" },
     ],
   },
   {
@@ -53,16 +82,7 @@ const navigation: NavItem[] = [
       { title: "Burp Suite", href: "/docs/araclar/burp-suite" },
       { title: "Nuclei", href: "/docs/araclar/nuclei" },
       { title: "FFUF", href: "/docs/araclar/ffuf" },
-      { title: "Subfinder", href: "/docs/araclar/subfinder" },
-    ],
-  },
-  {
-    title: "Metodoloji",
-    icon: <Target className="w-4 h-4" />,
-    items: [
-      { title: "Keşif Aşaması", href: "/docs/metodoloji/kesif" },
-      { title: "Analiz ve Test", href: "/docs/metodoloji/analiz" },
-      { title: "Rapor Yazımı", href: "/docs/metodoloji/rapor" },
+      { title: "SQLMap", href: "/docs/araclar/sqlmap" },
     ],
   },
 ]
@@ -135,7 +155,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
             <Shield className="w-4 h-4 text-primary" />
           </div>
-          <span className="font-semibold text-foreground">BugBounty.tr</span>
+          <span className="font-semibold text-foreground">SecDocs.tr</span>
         </Link>
       </div>
 
