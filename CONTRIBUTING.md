@@ -11,7 +11,7 @@ Projeyi kendi bilgisayarınızda (lokal ortamda) çalıştırmak ve değişiklik
 1. **Repoyu Forklayın:** GitHub üzerinden bu repoyu kendi hesabınıza "Fork" edin.
 2. **Klonlayın:** Forkladığınız repoyu bilgisayarınıza indirin.
    ```bash
-   git clone [https://github.com/KULLANICI_ADINIZ/bountystash.git](https://github.com/KULLANICI_ADINIZ/bountystash.git)
+   https://github.com/KULLANICI_ADINIZ/bountystash.git
    cd bountystash
    ```
 3. **Bağımlılıkları Yükleyin:**
