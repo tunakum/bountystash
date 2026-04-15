@@ -1,98 +1,39 @@
-# BountyStash
+# BountyStash 
 
-Türkçe güvenlik zafiyetleri dokümantasyonu. Web, API ve AI/LLM güvenlik açıkları için kapsamlı payload koleksiyonu ve bypass teknikleri.
+Modern siber güvenlik araştırmacıları için Türkçe zafiyet kütüphanesi. Web, API ve AI/LLM mimarilerindeki güvenlik açıkları için sahada test edilmiş payload koleksiyonları ve güncel bypass teknikleri.
 
 ---
 
 ## Özellikler
 
-- **Web Zafiyetleri** - XSS, SQL Injection, CSRF, SSRF, XXE, Deserialization, File Upload
-- **API Zafiyetleri** - BOLA/IDOR, Broken Auth, Mass Assignment, GraphQL, REST
-- **AI/LLM Zafiyetleri** - OWASP LLM Top 10, Prompt Injection, Jailbreaking, Data Poisoning
-- **Injection Türleri** - Command, LDAP, NoSQL, SSTI, Header Injection
-- **Authentication** - OAuth, JWT, Session, Password Reset, 2FA Bypass
+- **Web Zafiyetleri:** XSS, SQLi, CSRF, SSRF, XXE, Deserialization, File Upload
+- **API Zafiyetleri:** BOLA/IDOR, Broken Auth, Mass Assignment, GraphQL, REST
+- **AI/LLM Zafiyetleri:** OWASP LLM Top 10, Prompt Injection, Jailbreaking, Data Poisoning
+- **Injection Türleri:** Command, LDAP, NoSQL, SSTI, Header Injection
+- **Authentication:** OAuth, JWT, Session Management, Password Reset, 2FA Bypass
 
 ## Neden BountyStash?
 
-- **Türkçe içerik** - Tüm açıklamalar ve dipnotlar Türkçe
-- **Geniş payload koleksiyonu** - Her kategori için 100+ payload
-- **Kopyala-yapıştır** - Tek tıkla payload kopyalama
-- **WAF bypass teknikleri** - Gerçek dünya senaryoları
-- **Modern arayüz** - Linear.app tarzı premium tasarım
-
-## Teknolojiler
-
-- [Next.js 16](https://nextjs.org/) - React framework
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Framer Motion](https://www.framer.com/motion/) - Animasyonlar
-- [shadcn/ui](https://ui.shadcn.com/) - UI bileşenleri
-
-## Kurulum
-
-```bash
-# Repoyu klonla
-git clone https://github.com/tunakum/BountyStash.git
-cd BountyStash
-
-# Bağımlılıkları yükle
-pnpm install
-
-# Geliştirme sunucusunu başlat
-pnpm dev
-```
-
-Tarayıcıda [http://localhost:3000](http://localhost:3000) adresini aç.
-
-## Proje Yapısı
-
-```
-BountyStash/
-├── app/
-│   ├── docs/
-│   │   ├── web/          # Web zafiyetleri (XSS, SQLi, vb.)
-│   │   ├── api/          # API zafiyetleri (BOLA, IDOR, vb.)
-│   │   ├── ai/           # AI/LLM zafiyetleri
-│   │   ├── injection/    # Injection türleri
-│   │   └── auth/         # Authentication zafiyetleri
-│   └── page.tsx          # Ana sayfa
-├── components/
-│   ├── docs/             # Dokümantasyon bileşenleri
-│   └── ui/               # shadcn/ui bileşenleri
-└── public/               # Statik dosyalar
-```
+- **Türkçe İçerik:** Tüm zafiyet açıklamaları, sömürü mantıkları ve dipnotlar tamamen Türkçe.
+- **Pratik Kullanım:** Her kategori için gerçek dünya WAF bypass teknikleri ve tek tıkla kopyalanabilen payload'lar.
 
 ## Katkıda Bulunma
 
-Katkılarınızı bekliyoruz! Yeni payload eklemek, hata düzeltmek veya yeni zafiyet sayfası oluşturmak için:
+BountyStash açık kaynaklı bir topluluk projesidir. Yeni bir payload eklemek, mevcut bir bypass tekniğini güncellemek veya projenin kaynak koduna katkı sağlamak isterseniz desteklerinizi bekliyoruz!
 
-1. Bu repoyu fork edin
-2. Yeni bir branch oluşturun (`git checkout -b feature/yeni-payload`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Yeni XSS payloadları eklendi'`)
-4. Branch'i push edin (`git push origin feature/yeni-payload`)
-5. Pull Request açın
-
-### Payload Formatı
-
-Yeni payload eklerken şu formatı kullanın:
-
-```typescript
-{
-  code: "<script>alert(1)</script>",
-  note: "Temel XSS payload'ı, çoğu WAF tarafından engellenir"
-}
-```
-
-- `code`: Payload kodu
-- `note`: Türkçe açıklama veya ipucu (opsiyonel ama önerilir)
+Projeyi lokalinizde çalıştırmak, kod standartlarımızı öğrenmek ve PR (Pull Request) göndermek için lütfen **[CONTRIBUTING.md](CONTRIBUTING.md)** dosyamızı inceleyin.
 
 ## Lisans
 
-[MIT](LICENSE)
+Bu proje [MIT](LICENSE) lisansı ile lisanslanmıştır.
+
+## ⚠️ Yasal Uyarı
+
+Bu dokümantasyon ve içerdiği payload'lar **yalnızca eğitim amaçlıdır**. Öğrendiğiniz teknikleri ve payload'ları yalnızca açıkça izin verilmiş sistemlerde, kendi laboratuvar ortamlarınızda veya yasal bug bounty programlarında kullanın. Yetkisiz sistemlere yönelik herhangi bir sızma girişimi yasa dışıdır. Doğabilecek sonuçlardan kullanıcı sorumludur.
 
 ## İletişim
 
-GitHub: [@tunakum](https://github.com/tunakum)
+Projeyle ilgili geri bildirimde bulunmak, fikir paylaşmak veya ağ kurmak için bana ulaşabilirsiniz:
 
----
-
-**Yasal Uyarı:** Bu dokümantasyon yalnızca eğitim amaçlıdır. Payloadları yalnızca izinli sistemlerde ve yasal bug bounty programlarında kullanın. Yetkisiz sistemlere erişim yasa dışıdır.
+- **GitHub:** [@tunakum](https://github.com/tunakum)
+- **LinkedIn:** [Tunahan Kum](https://linkedin.com/in/tunahankum)

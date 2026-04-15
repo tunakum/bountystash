@@ -15,7 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'BountyStash | Güvenlik Zafiyetleri Dokümantasyonu',
   description: 'Web, API ve AI güvenlik zafiyetleri için kapsamlı Türkçe dokümantasyon. XSS, SQL Injection, Prompt Injection payload ve bypass teknikleri.',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
@@ -41,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="tr" className={`${inter.variable} ${geistMono.variable} bg-background`}>
+    <html lang="tr" data-scroll-behavior="smooth" className={`${inter.variable} ${geistMono.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
