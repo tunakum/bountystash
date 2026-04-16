@@ -5,12 +5,22 @@ import { Brain, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "extraction", title: "Model Extraction", level: 2 },
+  { id: "prompt-extraction", title: "System Prompt Extraction", level: 2 },
+  { id: "side-channel", title: "Side-Channel Attacks", level: 2 },
+  { id: "infrastructure", title: "Infrastructure Attacks", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function ModelTheftPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-purple-400 text-sm font-medium mb-4">
@@ -30,7 +40,7 @@ export default function ModelTheftPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Model Extraction</h2>
+        <h2 id="extraction" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Model Extraction</h2>
         <p className="text-muted-foreground mb-4">
           API üzerinden sistematik sorgular göndererek modelin davranışını kopyalayan
           bir &quot;shadow model&quot; eğitme.
@@ -52,7 +62,7 @@ export default function ModelTheftPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">System Prompt Extraction</h2>
+        <h2 id="prompt-extraction" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">System Prompt Extraction</h2>
         <PayloadList
           title="Prompt Leakage Teknikleri"
           initialShow={8}
@@ -72,7 +82,7 @@ export default function ModelTheftPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Side-Channel Attacks</h2>
+        <h2 id="side-channel" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Side-Channel Attacks</h2>
         <PayloadList
           title="Side-Channel Vektörleri"
           initialShow={6}
@@ -88,7 +98,7 @@ export default function ModelTheftPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Infrastructure Attacks</h2>
+        <h2 id="infrastructure" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Infrastructure Attacks</h2>
         <PayloadList
           title="Infrastructure Exploitation"
           initialShow={6}
@@ -124,5 +134,6 @@ export default function ModelTheftPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

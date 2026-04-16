@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { Globe } from "lucide-react"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
@@ -499,19 +500,19 @@ export default function XSSPage() {
         {/* Footer Navigation */}
         <motion.div variants={fadeIn} className="mt-16 pt-8 border-t border-border/50">
           <div className="flex justify-between items-center">
-            <a 
-              href="/docs" 
+            <Link
+              href="/docs"
               className="text-muted-foreground hover:text-foreground transition-colors text-sm"
             >
               Ana Sayfa
-            </a>
-            <a 
-              href="/docs/web/sql-injection" 
+            </Link>
+            <Link
+              href="/docs/web/sql-injection"
               className="text-primary hover:text-primary/80 transition-colors text-sm flex items-center gap-2"
             >
               SQL Injection
               <span>→</span>
-            </a>
+            </Link>
           </div>
         </motion.div>
       </motion.article>

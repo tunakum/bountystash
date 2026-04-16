@@ -5,12 +5,22 @@ import { Lock, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "algorithm", title: "Algorithm Attacks", level: 2 },
+  { id: "claim", title: "Claim Manipulation", level: 2 },
+  { id: "key-attacks", title: "Key Attacks", level: 2 },
+  { id: "token-handling", title: "Token Handling", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function JWTPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-red-400 text-sm font-medium mb-4">
@@ -30,7 +40,7 @@ export default function JWTPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Algorithm Attacks</h2>
+        <h2 id="algorithm" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Algorithm Attacks</h2>
         <PayloadList
           title="Algorithm Manipulation"
           initialShow={8}
@@ -48,7 +58,7 @@ export default function JWTPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Claim Manipulation</h2>
+        <h2 id="claim" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Claim Manipulation</h2>
         <PayloadList
           title="Payload Tampering"
           initialShow={8}
@@ -67,7 +77,7 @@ export default function JWTPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Key Attacks</h2>
+        <h2 id="key-attacks" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Key Attacks</h2>
         <PayloadList
           title="Key Confusion & Brute Force"
           initialShow={8}
@@ -87,7 +97,7 @@ export default function JWTPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Token Handling</h2>
+        <h2 id="token-handling" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Token Handling</h2>
         <PayloadList
           title="Token Misuse"
           initialShow={6}
@@ -121,5 +131,6 @@ export default function JWTPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

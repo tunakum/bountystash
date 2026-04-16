@@ -5,6 +5,16 @@ import { Globe, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "temel-csrf", title: "Temel CSRF Payloadları", level: 2 },
+  { id: "json-csrf", title: "JSON CSRF", level: 2 },
+  { id: "token-bypass", title: "CSRF Token Bypass", level: 2 },
+  { id: "samesite-bypass", title: "SameSite Cookie Bypass", level: 2 },
+  { id: "gelismis-csrf", title: "Gelişmiş CSRF Teknikleri", level: 2 },
+  { id: "login-csrf", title: "Login CSRF", level: 2 },
+]
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -17,6 +27,8 @@ const stagger = {
 
 export default function CSRFPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div
       initial="hidden"
       animate="visible"
@@ -47,7 +59,7 @@ export default function CSRFPage() {
 
       {/* Basic CSRF */}
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Temel CSRF Payloadları</h2>
+        <h2 id="temel-csrf" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Temel CSRF Payloadları</h2>
         <p className="text-muted-foreground mb-6">
           HTML formları ve resim etiketleri kullanarak basit CSRF saldırıları.
         </p>
@@ -91,7 +103,7 @@ export default function CSRFPage() {
 
       {/* JSON CSRF */}
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">JSON CSRF</h2>
+        <h2 id="json-csrf" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">JSON CSRF</h2>
         <p className="text-muted-foreground mb-6">
           JSON API endpoint&apos;lerine CSRF saldırıları. Content-Type kısıtlamalarını atlatma.
         </p>
@@ -130,7 +142,7 @@ xhr.send('{"admin":true}');
 
       {/* Token Bypass */}
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">CSRF Token Bypass</h2>
+        <h2 id="token-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">CSRF Token Bypass</h2>
         <p className="text-muted-foreground mb-6">
           CSRF token korumalarını atlatma teknikleri.
         </p>
@@ -163,7 +175,7 @@ CSRF-Token: attacker_token`, note: "HTTP header'da çift token" },
 
       {/* SameSite Bypass */}
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">SameSite Cookie Bypass</h2>
+        <h2 id="samesite-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">SameSite Cookie Bypass</h2>
         <p className="text-muted-foreground mb-6">
           SameSite cookie attribute atlatma teknikleri.
         </p>
@@ -189,7 +201,7 @@ CSRF-Token: attacker_token`, note: "HTTP header'da çift token" },
 
       {/* Advanced CSRF */}
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Gelişmiş CSRF Teknikleri</h2>
+        <h2 id="gelismis-csrf" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Gelişmiş CSRF Teknikleri</h2>
 
         <PayloadList
           title="Gelişmiş Payloadlar"
@@ -239,7 +251,7 @@ fetch('http://rebind.attacker.com/api/internal')
 
       {/* Login CSRF */}
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Login CSRF</h2>
+        <h2 id="login-csrf" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Login CSRF</h2>
         <p className="text-muted-foreground mb-6">
           Kullanıcıyı saldırganın hesabına giriş yaptırma saldırısı.
         </p>
@@ -294,5 +306,6 @@ setTimeout(function(){
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

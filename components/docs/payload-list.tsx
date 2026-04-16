@@ -17,13 +17,6 @@ interface PayloadListProps {
   className?: string
 }
 
-// Safely escape HTML to prevent XSS when displaying payloads
-function escapeHtml(text: string): string {
-  const div = document.createElement('div')
-  div.textContent = text
-  return div.innerHTML
-}
-
 export function PayloadList({ title, payloads, initialShow = 5, className }: PayloadListProps) {
   const [showAll, setShowAll] = useState(false)
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)

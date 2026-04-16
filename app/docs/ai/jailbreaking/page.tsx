@@ -5,12 +5,23 @@ import { Brain, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "role-play", title: "Role-Play Jailbreaks", level: 2 },
+  { id: "encoding", title: "Encoding & Obfuscation", level: 2 },
+  { id: "multi-turn", title: "Multi-Turn Attacks", level: 2 },
+  { id: "structure", title: "Prompt Structure Manipulation", level: 2 },
+  { id: "logic", title: "Logic & Reasoning Exploits", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function JailbreakingPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-purple-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function JailbreakingPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Role-Play Jailbreaks</h2>
+        <h2 id="role-play" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Role-Play Jailbreaks</h2>
         <PayloadList
           title="Character Assumption"
           initialShow={6}
@@ -48,7 +59,7 @@ export default function JailbreakingPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Encoding & Obfuscation</h2>
+        <h2 id="encoding" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Encoding & Obfuscation</h2>
         <PayloadList
           title="Encoding Bypass"
           initialShow={8}
@@ -67,7 +78,7 @@ export default function JailbreakingPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Multi-Turn Attacks</h2>
+        <h2 id="multi-turn" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Multi-Turn Attacks</h2>
         <PayloadList
           title="Gradual Escalation"
           initialShow={6}
@@ -83,7 +94,7 @@ export default function JailbreakingPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Prompt Structure Manipulation</h2>
+        <h2 id="structure" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Prompt Structure Manipulation</h2>
         <PayloadList
           title="Structure Exploits"
           initialShow={6}
@@ -101,7 +112,7 @@ export default function JailbreakingPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Logic & Reasoning Exploits</h2>
+        <h2 id="logic" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Logic & Reasoning Exploits</h2>
         <PayloadList
           title="Logic Bypass"
           initialShow={6}
@@ -135,5 +146,6 @@ export default function JailbreakingPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

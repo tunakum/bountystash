@@ -42,6 +42,8 @@ const categories = [
       { title: "CSRF", href: "/docs/web/csrf" },
       { title: "SSRF", href: "/docs/web/ssrf" },
       { title: "XXE Injection", href: "/docs/web/xxe" },
+      { title: "Insecure Deserialization", href: "/docs/web/deserialization" },
+      { title: "File Upload", href: "/docs/web/file-upload" },
     ],
   },
   {
@@ -54,9 +56,11 @@ const categories = [
     items: [
       { title: "BOLA / IDOR", href: "/docs/api/bola-idor" },
       { title: "Broken Authentication", href: "/docs/api/broken-auth" },
+      { title: "BOPLA", href: "/docs/api/bopla" },
       { title: "Mass Assignment", href: "/docs/api/mass-assignment" },
-      { title: "GraphQL Security", href: "/docs/api/graphql" },
       { title: "Rate Limiting", href: "/docs/api/rate-limiting" },
+      { title: "GraphQL Security", href: "/docs/api/graphql" },
+      { title: "REST API Security", href: "/docs/api/rest" },
     ],
   },
   {
@@ -71,6 +75,7 @@ const categories = [
       { title: "Prompt Injection", href: "/docs/ai/prompt-injection" },
       { title: "Jailbreaking", href: "/docs/ai/jailbreaking" },
       { title: "Data Poisoning", href: "/docs/ai/data-poisoning" },
+      { title: "Model Theft", href: "/docs/ai/model-theft" },
       { title: "Insecure Output", href: "/docs/ai/insecure-output" },
     ],
   },

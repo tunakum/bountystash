@@ -20,20 +20,29 @@ const searchData: SearchResult[] = [
   { title: "CSRF", href: "/docs/web/csrf", category: "Web Zafiyetleri", description: "Cross-Site Request Forgery saldırıları" },
   { title: "SSRF", href: "/docs/web/ssrf", category: "Web Zafiyetleri", description: "Server-Side Request Forgery açıkları" },
   { title: "XXE Injection", href: "/docs/web/xxe", category: "Web Zafiyetleri", description: "XML External Entity zafiyetleri" },
+  { title: "Insecure Deserialization", href: "/docs/web/deserialization", category: "Web Zafiyetleri", description: "Güvensiz deserialization zafiyetleri" },
+  { title: "File Upload", href: "/docs/web/file-upload", category: "Web Zafiyetleri", description: "Dosya yükleme zafiyetleri" },
   // API Zafiyetleri
   { title: "BOLA / IDOR", href: "/docs/api/bola-idor", category: "API Zafiyetleri", description: "Yetkilendirme atlatma açıkları" },
   { title: "Broken Authentication", href: "/docs/api/broken-auth", category: "API Zafiyetleri", description: "Kırık kimlik doğrulama" },
   { title: "GraphQL Security", href: "/docs/api/graphql", category: "API Zafiyetleri", description: "GraphQL güvenlik açıkları" },
   { title: "Mass Assignment", href: "/docs/api/mass-assignment", category: "API Zafiyetleri", description: "Toplu atama zafiyetleri" },
+  { title: "BOPLA", href: "/docs/api/bopla", category: "API Zafiyetleri", description: "Broken Object Property Level Authorization" },
+  { title: "REST API Security", href: "/docs/api/rest", category: "API Zafiyetleri", description: "REST API güvenlik açıkları" },
+  { title: "Rate Limiting", href: "/docs/api/rate-limiting", category: "API Zafiyetleri", description: "Hız sınırlama zafiyetleri" },
   // AI/LLM Zafiyetleri  
   { title: "OWASP LLM Top 10", href: "/docs/ai/owasp-llm-top-10", category: "AI / LLM Zafiyetleri", description: "LLM güvenlik riskleri özeti" },
   { title: "Prompt Injection", href: "/docs/ai/prompt-injection", category: "AI / LLM Zafiyetleri", description: "Doğrudan ve dolaylı prompt enjeksiyonu" },
   { title: "Jailbreaking", href: "/docs/ai/jailbreaking", category: "AI / LLM Zafiyetleri", description: "LLM kısıtlamalarını aşma teknikleri" },
   { title: "Data Poisoning", href: "/docs/ai/data-poisoning", category: "AI / LLM Zafiyetleri", description: "Veri zehirleme saldırıları" },
+  { title: "Model Theft", href: "/docs/ai/model-theft", category: "AI / LLM Zafiyetleri", description: "Model hırsızlığı saldırıları" },
+  { title: "Insecure Output", href: "/docs/ai/insecure-output", category: "AI / LLM Zafiyetleri", description: "Güvensiz çıktı işleme" },
   // Injection Zafiyetleri
   { title: "Command Injection", href: "/docs/injection/command", category: "Injection Zafiyetleri", description: "Komut enjeksiyonu açıkları" },
   { title: "SSTI", href: "/docs/injection/ssti", category: "Injection Zafiyetleri", description: "Server-Side Template Injection" },
   { title: "NoSQL Injection", href: "/docs/injection/nosql", category: "Injection Zafiyetleri", description: "NoSQL veritabanı enjeksiyonu" },
+  { title: "LDAP Injection", href: "/docs/injection/ldap", category: "Injection Zafiyetleri", description: "LDAP enjeksiyon saldırıları" },
+  { title: "Header Injection", href: "/docs/injection/header", category: "Injection Zafiyetleri", description: "HTTP header enjeksiyonu" },
   // Authentication
   { title: "JWT Attacks", href: "/docs/auth/jwt", category: "Authentication", description: "JWT token saldırıları" },
   { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth", category: "Authentication", description: "OAuth protokol açıkları" },
@@ -62,6 +71,12 @@ export function SearchModal() {
     setIsOpen(false)
     setQuery("")
   }, [router])
+
+  useEffect(() => {
+    const handleOpenSearch = () => setIsOpen(true)
+    window.addEventListener("open-search", handleOpenSearch)
+    return () => window.removeEventListener("open-search", handleOpenSearch)
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

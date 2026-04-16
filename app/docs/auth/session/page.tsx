@@ -5,12 +5,23 @@ import { Lock, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "fixation", title: "Session Fixation", level: 2 },
+  { id: "cookie-flags", title: "Cookie Security Flags", level: 2 },
+  { id: "hijacking", title: "Session Hijacking", level: 2 },
+  { id: "prediction", title: "Session Prediction", level: 2 },
+  { id: "logout", title: "Logout & Invalidation", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function SessionPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-red-400 text-sm font-medium mb-4">
@@ -25,7 +36,7 @@ export default function SessionPage() {
       </motion.div>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Session Fixation</h2>
+        <h2 id="fixation" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Session Fixation</h2>
         <PayloadList
           title="Fixation Payloads"
           initialShow={6}
@@ -41,7 +52,7 @@ export default function SessionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Cookie Security Flags</h2>
+        <h2 id="cookie-flags" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Cookie Security Flags</h2>
         <Callout type="info" title="Dipnot">
           Cookie&apos;lerin güvenlik flag&apos;lerini kontrol edin. Eksik flag&apos;ler
           session hijacking&apos;i kolaylaştırır.
@@ -64,7 +75,7 @@ export default function SessionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Session Hijacking</h2>
+        <h2 id="hijacking" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Session Hijacking</h2>
         <PayloadList
           title="Hijacking Teknikleri"
           initialShow={8}
@@ -81,7 +92,7 @@ export default function SessionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Session Prediction</h2>
+        <h2 id="prediction" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Session Prediction</h2>
         <PayloadList
           title="Prediction Payloads"
           initialShow={6}
@@ -97,7 +108,7 @@ export default function SessionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Logout & Invalidation</h2>
+        <h2 id="logout" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Logout & Invalidation</h2>
         <PayloadList
           title="Logout Bypass"
           initialShow={6}
@@ -131,5 +142,6 @@ export default function SessionPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

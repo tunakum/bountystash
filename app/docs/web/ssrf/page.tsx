@@ -5,12 +5,24 @@ import { Globe, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "localhost", title: "Localhost / Internal IP", level: 2 },
+  { id: "cloud-metadata", title: "Cloud Metadata", level: 2 },
+  { id: "protocol-handlers", title: "Protocol Handlers", level: 2 },
+  { id: "url-bypass", title: "URL Bypass Teknikleri", level: 2 },
+  { id: "dns-rebinding", title: "DNS Rebinding", level: 2 },
+  { id: "internal-service", title: "Internal Service Discovery", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function SSRFPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
@@ -30,7 +42,7 @@ export default function SSRFPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Localhost / Internal IP</h2>
+        <h2 id="localhost" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Localhost / Internal IP</h2>
         <PayloadList
           title="Localhost Bypass"
           initialShow={8}
@@ -61,7 +73,7 @@ export default function SSRFPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Cloud Metadata</h2>
+        <h2 id="cloud-metadata" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Cloud Metadata</h2>
         <PayloadList
           title="AWS Metadata"
           initialShow={8}
@@ -100,7 +112,7 @@ export default function SSRFPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Protocol Handlers</h2>
+        <h2 id="protocol-handlers" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Protocol Handlers</h2>
         <PayloadList
           title="Farklı Protokoller"
           initialShow={8}
@@ -121,7 +133,7 @@ export default function SSRFPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">URL Bypass Teknikleri</h2>
+        <h2 id="url-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">URL Bypass Teknikleri</h2>
         <PayloadList
           title="Whitelist/Blacklist Bypass"
           initialShow={8}
@@ -143,7 +155,7 @@ export default function SSRFPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">DNS Rebinding</h2>
+        <h2 id="dns-rebinding" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">DNS Rebinding</h2>
         <PayloadList
           title="DNS Rebinding Payloadları"
           initialShow={5}
@@ -157,7 +169,7 @@ export default function SSRFPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Internal Service Discovery</h2>
+        <h2 id="internal-service" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Internal Service Discovery</h2>
         <PayloadList
           title="Common Internal Services"
           initialShow={8}
@@ -198,5 +210,6 @@ export default function SSRFPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

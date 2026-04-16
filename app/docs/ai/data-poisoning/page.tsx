@@ -5,12 +5,22 @@ import { Brain, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "training-data", title: "Training Data Manipulation", level: 2 },
+  { id: "rag-poisoning", title: "RAG Poisoning", level: 2 },
+  { id: "fine-tuning", title: "Fine-Tuning Attacks", level: 2 },
+  { id: "detection", title: "Detection & Indicators", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function DataPoisoningPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-purple-400 text-sm font-medium mb-4">
@@ -30,7 +40,7 @@ export default function DataPoisoningPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Training Data Manipulation</h2>
+        <h2 id="training-data" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Training Data Manipulation</h2>
         <PayloadList
           title="Data Poisoning Vektörleri"
           initialShow={8}
@@ -48,7 +58,7 @@ export default function DataPoisoningPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">RAG Poisoning</h2>
+        <h2 id="rag-poisoning" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">RAG Poisoning</h2>
         <p className="text-muted-foreground mb-4">
           Retrieval-Augmented Generation sistemlerinde veri kaynaklarını manipüle ederek
           model çıktısını değiştirme.
@@ -70,7 +80,7 @@ export default function DataPoisoningPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Fine-Tuning Attacks</h2>
+        <h2 id="fine-tuning" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Fine-Tuning Attacks</h2>
         <PayloadList
           title="Fine-Tune Poisoning"
           initialShow={6}
@@ -86,7 +96,7 @@ export default function DataPoisoningPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Detection & Indicators</h2>
+        <h2 id="detection" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Detection & Indicators</h2>
         <PayloadList
           title="Poisoning İndikatörleri"
           initialShow={6}
@@ -120,5 +130,6 @@ export default function DataPoisoningPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

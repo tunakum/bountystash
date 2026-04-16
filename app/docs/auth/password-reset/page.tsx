@@ -5,12 +5,23 @@ import { Lock, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "token-manipulation", title: "Token Manipulation", level: 2 },
+  { id: "host-header", title: "Host Header Poisoning", level: 2 },
+  { id: "email-param", title: "Email Parameter Manipulation", level: 2 },
+  { id: "flow-bypass", title: "Flow Bypass", level: 2 },
+  { id: "otp-brute", title: "OTP Brute Force", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function PasswordResetPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-red-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function PasswordResetPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Token Manipulation</h2>
+        <h2 id="token-manipulation" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Token Manipulation</h2>
         <PayloadList
           title="Reset Token Payloads"
           initialShow={8}
@@ -50,7 +61,7 @@ export default function PasswordResetPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Host Header Poisoning</h2>
+        <h2 id="host-header" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Host Header Poisoning</h2>
         <PayloadList
           title="Host Header Payloads"
           initialShow={6}
@@ -66,7 +77,7 @@ export default function PasswordResetPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Email Parameter Manipulation</h2>
+        <h2 id="email-param" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Email Parameter Manipulation</h2>
         <PayloadList
           title="Email Payloads"
           initialShow={8}
@@ -86,7 +97,7 @@ export default function PasswordResetPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Flow Bypass</h2>
+        <h2 id="flow-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Flow Bypass</h2>
         <PayloadList
           title="Workflow Bypass"
           initialShow={8}
@@ -104,7 +115,7 @@ export default function PasswordResetPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">OTP Brute Force</h2>
+        <h2 id="otp-brute" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">OTP Brute Force</h2>
         <PayloadList
           title="OTP Bypass Payloads"
           initialShow={6}
@@ -139,5 +150,6 @@ export default function PasswordResetPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

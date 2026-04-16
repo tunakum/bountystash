@@ -5,12 +5,22 @@ import { Server, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "ip-rotation", title: "IP Rotation Headers", level: 2 },
+  { id: "endpoint-variation", title: "Endpoint Variation", level: 2 },
+  { id: "request-manipulation", title: "Request Manipulation", level: 2 },
+  { id: "batch-abuse", title: "Batch / Array Abuse", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function RateLimitingPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-green-400 text-sm font-medium mb-4">
@@ -30,7 +40,7 @@ export default function RateLimitingPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">IP Rotation Headers</h2>
+        <h2 id="ip-rotation" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">IP Rotation Headers</h2>
         <PayloadList
           title="IP Spoofing Headers"
           initialShow={10}
@@ -54,7 +64,7 @@ export default function RateLimitingPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Endpoint Variation</h2>
+        <h2 id="endpoint-variation" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Endpoint Variation</h2>
         <PayloadList
           title="Endpoint Bypass"
           initialShow={8}
@@ -74,7 +84,7 @@ export default function RateLimitingPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Request Manipulation</h2>
+        <h2 id="request-manipulation" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Request Manipulation</h2>
         <PayloadList
           title="Request Bypass"
           initialShow={8}
@@ -94,7 +104,7 @@ export default function RateLimitingPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Batch / Array Abuse</h2>
+        <h2 id="batch-abuse" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Batch / Array Abuse</h2>
         <PayloadList
           title="Batch Request Payloads"
           initialShow={6}
@@ -104,7 +114,7 @@ export default function RateLimitingPage() {
             { code: `POST /graphql [{"query":"..."}, {"query":"..."}, ...]`, note: "GraphQL batching" },
             { code: `POST /graphql {"query":"alias1: login(...) alias2: login(...)"}`, note: "GraphQL aliasing" },
             { code: `POST /api/otp/verify {"code":"000000-999999"}`, note: "Wildcard OTP (bazı impl)" },
-            { code: `POST /api/otp/verify {"code":["0000","0001","0002",...]}`, note: "Array OTP brute" },
+            { code: `POST /api/otp/verify {"code":["0000","0001","0002",...]}`, note: "Array OTP brute force" },
           ]}
         />
       </motion.section>
@@ -129,5 +139,6 @@ export default function RateLimitingPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

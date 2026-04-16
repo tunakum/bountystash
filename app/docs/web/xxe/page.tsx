@@ -5,12 +5,24 @@ import { Globe, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "temel-xxe", title: "Temel XXE Payloadları", level: 2 },
+  { id: "blind-xxe", title: "Blind XXE (Out-of-Band)", level: 2 },
+  { id: "xxe-ssrf", title: "XXE to SSRF", level: 2 },
+  { id: "dos", title: "DoS Payloadları", level: 2 },
+  { id: "bypass", title: "Bypass Teknikleri", level: 2 },
+  { id: "different-contexts", title: "XXE in Different Contexts", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function XXEPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
@@ -29,7 +41,7 @@ export default function XXEPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Temel XXE Payloadları</h2>
+        <h2 id="temel-xxe" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Temel XXE Payloadları</h2>
         <PayloadList
           title="File Read (Linux)"
           initialShow={8}
@@ -97,7 +109,7 @@ export default function XXEPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Blind XXE (Out-of-Band)</h2>
+        <h2 id="blind-xxe" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Blind XXE (Out-of-Band)</h2>
         <PayloadList
           title="OOB XXE"
           initialShow={5}
@@ -135,7 +147,7 @@ export default function XXEPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">XXE to SSRF</h2>
+        <h2 id="xxe-ssrf" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">XXE to SSRF</h2>
         <PayloadList
           title="SSRF via XXE"
           initialShow={5}
@@ -165,7 +177,7 @@ export default function XXEPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">DoS Payloadları</h2>
+        <h2 id="dos" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">DoS Payloadları</h2>
         <PayloadList
           title="Billion Laughs / Entity Expansion"
           initialShow={3}
@@ -194,7 +206,7 @@ export default function XXEPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Bypass Teknikleri</h2>
+        <h2 id="bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Bypass Teknikleri</h2>
         <PayloadList
           title="XXE Bypass"
           initialShow={8}
@@ -234,7 +246,7 @@ export default function XXEPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">XXE in Different Contexts</h2>
+        <h2 id="different-contexts" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">XXE in Different Contexts</h2>
         <PayloadList
           title="Farklı Format XXE"
           initialShow={5}
@@ -277,5 +289,6 @@ export default function XXEPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

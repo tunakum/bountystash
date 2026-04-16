@@ -5,12 +5,23 @@ import { Server, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "introspection", title: "Introspection", level: 2 },
+  { id: "introspection-bypass", title: "Introspection Bypass", level: 2 },
+  { id: "graphql-injection", title: "GraphQL Injection", level: 2 },
+  { id: "dos", title: "DoS / Resource Exhaustion", level: 2 },
+  { id: "auth-bypass", title: "Authorization Bypass", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function GraphQLPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-green-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function GraphQLPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Introspection</h2>
+        <h2 id="introspection" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Introspection</h2>
         <p className="text-muted-foreground mb-4">
           Introspection query ile tüm şemayı çıkarın. Type&apos;lar, field&apos;lar,
           mutation&apos;lar ve input type&apos;ları keşfedin.
@@ -50,7 +61,7 @@ export default function GraphQLPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Introspection Bypass</h2>
+        <h2 id="introspection-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Introspection Bypass</h2>
         <PayloadList
           title="Introspection Disabled Bypass"
           initialShow={6}
@@ -68,7 +79,7 @@ export default function GraphQLPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">GraphQL Injection</h2>
+        <h2 id="graphql-injection" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">GraphQL Injection</h2>
         <PayloadList
           title="Injection Payloads"
           initialShow={8}
@@ -86,7 +97,7 @@ export default function GraphQLPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">DoS / Resource Exhaustion</h2>
+        <h2 id="dos" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">DoS / Resource Exhaustion</h2>
         <PayloadList
           title="DoS Payloads"
           initialShow={6}
@@ -102,7 +113,7 @@ export default function GraphQLPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Authorization Bypass</h2>
+        <h2 id="auth-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Authorization Bypass</h2>
         <PayloadList
           title="Auth Bypass Payloads"
           initialShow={6}
@@ -136,5 +147,6 @@ export default function GraphQLPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

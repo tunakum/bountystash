@@ -5,12 +5,23 @@ import { Database, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "crlf", title: "CRLF Injection", level: 2 },
+  { id: "host-header", title: "Host Header Poisoning", level: 2 },
+  { id: "password-reset-poison", title: "Password Reset Poisoning", level: 2 },
+  { id: "cache-poisoning", title: "Cache Poisoning", level: 2 },
+  { id: "email-header", title: "Email Header Injection", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function HeaderInjectionPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-yellow-400 text-sm font-medium mb-4">
@@ -25,7 +36,7 @@ export default function HeaderInjectionPage() {
       </motion.div>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">CRLF Injection</h2>
+        <h2 id="crlf" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">CRLF Injection</h2>
         <p className="text-muted-foreground mb-4">
           Carriage Return (\r) ve Line Feed (\n) karakterleri ile HTTP response&apos;a
           yeni header veya body enjekte etme.
@@ -49,7 +60,7 @@ export default function HeaderInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Host Header Poisoning</h2>
+        <h2 id="host-header" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Host Header Poisoning</h2>
         <PayloadList
           title="Host Header Payloads"
           initialShow={8}
@@ -69,7 +80,7 @@ export default function HeaderInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Password Reset Poisoning</h2>
+        <h2 id="password-reset-poison" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Password Reset Poisoning</h2>
         <Callout type="info" title="Dipnot">
           Password reset email&apos;inde Host header kullanılıyorsa, link attacker&apos;ın
           sunucusuna yönlendirilebilir. Token çalınarak account takeover mümkün.
@@ -88,7 +99,7 @@ export default function HeaderInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Cache Poisoning</h2>
+        <h2 id="cache-poisoning" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Cache Poisoning</h2>
         <PayloadList
           title="Cache Poison Payloads"
           initialShow={6}
@@ -104,7 +115,7 @@ export default function HeaderInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Email Header Injection</h2>
+        <h2 id="email-header" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Email Header Injection</h2>
         <PayloadList
           title="Email Injection Payloads"
           initialShow={6}
@@ -138,5 +149,6 @@ export default function HeaderInjectionPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

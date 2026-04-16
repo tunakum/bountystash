@@ -12,7 +12,7 @@ function useIsMac() {
   const [isMac, setIsMac] = useState(false)
   
   useEffect(() => {
-    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0)
+    setIsMac(navigator.userAgent.includes('Mac'))
   }, [])
   
   return isMac
@@ -165,7 +165,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
       {/* Search */}
       <div className="px-3 py-3">
-        <button className="flex items-center w-full px-3 py-2 text-sm text-muted-foreground rounded-lg bg-secondary/50 hover:bg-secondary transition-colors group">
+        <button onClick={() => window.dispatchEvent(new Event("open-search"))} className="flex items-center w-full px-3 py-2 text-sm text-muted-foreground rounded-lg bg-secondary/50 hover:bg-secondary transition-colors group">
           <Search className="w-4 h-4 mr-2" />
           <span>Ara...</span>
           <kbd className="ml-auto text-xs bg-background/50 px-1.5 py-0.5 rounded border border-border/50 font-mono hidden sm:block">

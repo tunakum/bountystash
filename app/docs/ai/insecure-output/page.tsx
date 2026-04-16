@@ -5,12 +5,23 @@ import { Brain, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "xss-llm", title: "XSS via LLM Output", level: 2 },
+  { id: "sqli-llm", title: "SQL Injection via LLM", level: 2 },
+  { id: "cmdi-llm", title: "Command Injection via LLM", level: 2 },
+  { id: "ssrf-llm", title: "SSRF via LLM", level: 2 },
+  { id: "data-exfil", title: "Data Exfiltration", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function InsecureOutputPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-purple-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function InsecureOutputPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">XSS via LLM Output</h2>
+        <h2 id="xss-llm" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">XSS via LLM Output</h2>
         <p className="text-muted-foreground mb-4">
           LLM çıktısı doğrudan HTML&apos;e render ediliyorsa, prompt injection ile XSS elde edilebilir.
         </p>
@@ -49,7 +60,7 @@ export default function InsecureOutputPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">SQL Injection via LLM</h2>
+        <h2 id="sqli-llm" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">SQL Injection via LLM</h2>
         <p className="text-muted-foreground mb-4">
           LLM&apos;in ürettiği SQL sorguları doğrudan execute ediliyorsa, prompt injection ile
           SQL injection elde edilebilir.
@@ -69,7 +80,7 @@ export default function InsecureOutputPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Command Injection via LLM</h2>
+        <h2 id="cmdi-llm" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Command Injection via LLM</h2>
         <PayloadList
           title="LLM → Command Injection"
           initialShow={6}
@@ -85,7 +96,7 @@ export default function InsecureOutputPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">SSRF via LLM</h2>
+        <h2 id="ssrf-llm" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">SSRF via LLM</h2>
         <PayloadList
           title="LLM → SSRF Payloads"
           initialShow={6}
@@ -101,7 +112,7 @@ export default function InsecureOutputPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Data Exfiltration</h2>
+        <h2 id="data-exfil" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Data Exfiltration</h2>
         <PayloadList
           title="Exfiltration via LLM Output"
           initialShow={6}
@@ -135,5 +146,6 @@ export default function InsecureOutputPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

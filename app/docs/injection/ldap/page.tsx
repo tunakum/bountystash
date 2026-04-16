@@ -5,12 +5,22 @@ import { Database, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "auth-bypass", title: "Authentication Bypass", level: 2 },
+  { id: "info-disclosure", title: "Information Disclosure", level: 2 },
+  { id: "blind-ldap", title: "Blind LDAP Injection", level: 2 },
+  { id: "special-chars", title: "Special Characters", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function LDAPInjectionPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-yellow-400 text-sm font-medium mb-4">
@@ -30,7 +40,7 @@ export default function LDAPInjectionPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Authentication Bypass</h2>
+        <h2 id="auth-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Authentication Bypass</h2>
         <PayloadList
           title="Login Bypass Payloads"
           initialShow={10}
@@ -50,7 +60,7 @@ export default function LDAPInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Information Disclosure</h2>
+        <h2 id="info-disclosure" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Information Disclosure</h2>
         <PayloadList
           title="Data Extraction"
           initialShow={8}
@@ -70,7 +80,7 @@ export default function LDAPInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Blind LDAP Injection</h2>
+        <h2 id="blind-ldap" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Blind LDAP Injection</h2>
         <PayloadList
           title="Boolean-Based Blind"
           initialShow={8}
@@ -88,7 +98,7 @@ export default function LDAPInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Special Characters</h2>
+        <h2 id="special-chars" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Special Characters</h2>
         <PayloadList
           title="LDAP Meta Characters"
           initialShow={6}
@@ -126,5 +136,6 @@ export default function LDAPInjectionPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

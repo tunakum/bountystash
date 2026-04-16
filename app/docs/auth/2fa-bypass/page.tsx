@@ -5,12 +5,23 @@ import { Lock, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "direct-bypass", title: "Direct Bypass", level: 2 },
+  { id: "response-manipulation", title: "Response Manipulation", level: 2 },
+  { id: "otp-brute", title: "OTP Brute Force", level: 2 },
+  { id: "backup-code", title: "Backup Code Attacks", level: 2 },
+  { id: "disable-downgrade", title: "2FA Disable / Downgrade", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function TwoFABypassPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-red-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function TwoFABypassPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Direct Bypass</h2>
+        <h2 id="direct-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Direct Bypass</h2>
         <PayloadList
           title="2FA Skip Payloads"
           initialShow={8}
@@ -50,7 +61,7 @@ export default function TwoFABypassPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Response Manipulation</h2>
+        <h2 id="response-manipulation" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Response Manipulation</h2>
         <PayloadList
           title="Response Tampering"
           initialShow={6}
@@ -66,7 +77,7 @@ export default function TwoFABypassPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">OTP Brute Force</h2>
+        <h2 id="otp-brute" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">OTP Brute Force</h2>
         <PayloadList
           title="OTP Attack Payloads"
           initialShow={8}
@@ -84,7 +95,7 @@ export default function TwoFABypassPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Backup Code Attacks</h2>
+        <h2 id="backup-code" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Backup Code Attacks</h2>
         <PayloadList
           title="Backup Code Payloads"
           initialShow={6}
@@ -100,7 +111,7 @@ export default function TwoFABypassPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">2FA Disable / Downgrade</h2>
+        <h2 id="disable-downgrade" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">2FA Disable / Downgrade</h2>
         <PayloadList
           title="Disable Payloads"
           initialShow={6}
@@ -137,5 +148,6 @@ export default function TwoFABypassPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

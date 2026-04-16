@@ -171,7 +171,7 @@ export default function SQLInjectionPage() {
         }}
       >
         <motion.div variants={fadeIn} className="mb-8">
-          <div className="flex items-center gap-2 text-orange-400 text-sm font-medium mb-4">
+          <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
             <Database className="w-4 h-4" />
             <span>Web Zafiyetleri</span>
           </div>

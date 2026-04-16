@@ -5,12 +5,23 @@ import { Lock, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "redirect-uri", title: "Redirect URI Manipulation", level: 2 },
+  { id: "auth-code", title: "Authorization Code Attacks", level: 2 },
+  { id: "csrf-state", title: "CSRF / State Parameter", level: 2 },
+  { id: "token-attacks", title: "Token Attacks", level: 2 },
+  { id: "social-login", title: "Social Login Bypass", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function OAuthPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-red-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function OAuthPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Redirect URI Manipulation</h2>
+        <h2 id="redirect-uri" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Redirect URI Manipulation</h2>
         <p className="text-muted-foreground mb-4">
           redirect_uri parametresinin validation&apos;ı yetersizse authorization code veya
           token attacker sunucusuna yönlendirilebilir.
@@ -56,7 +67,7 @@ export default function OAuthPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Authorization Code Attacks</h2>
+        <h2 id="auth-code" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Authorization Code Attacks</h2>
         <PayloadList
           title="Code Theft & Replay"
           initialShow={6}
@@ -72,7 +83,7 @@ export default function OAuthPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">CSRF / State Parameter</h2>
+        <h2 id="csrf-state" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">CSRF / State Parameter</h2>
         <PayloadList
           title="CSRF Payloads"
           initialShow={6}
@@ -88,7 +99,7 @@ export default function OAuthPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Token Attacks</h2>
+        <h2 id="token-attacks" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Token Attacks</h2>
         <PayloadList
           title="Token Theft & Manipulation"
           initialShow={8}
@@ -106,7 +117,7 @@ export default function OAuthPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Social Login Bypass</h2>
+        <h2 id="social-login" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Social Login Bypass</h2>
         <PayloadList
           title="Social Auth Payloads"
           initialShow={6}
@@ -141,5 +152,6 @@ export default function OAuthPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

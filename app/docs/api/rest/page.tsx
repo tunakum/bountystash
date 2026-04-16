@@ -5,12 +5,23 @@ import { Server, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "endpoint-discovery", title: "API Endpoint Discovery", level: 2 },
+  { id: "method-tampering", title: "HTTP Method Tampering", level: 2 },
+  { id: "content-type", title: "Content-Type Attacks", level: 2 },
+  { id: "path-traversal", title: "Path Traversal & Access Control", level: 2 },
+  { id: "business-logic", title: "Business Logic", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function RESTPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-green-400 text-sm font-medium mb-4">
@@ -25,7 +36,7 @@ export default function RESTPage() {
       </motion.div>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">API Endpoint Discovery</h2>
+        <h2 id="endpoint-discovery" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">API Endpoint Discovery</h2>
         <PayloadList
           title="Common API Paths"
           initialShow={10}
@@ -34,11 +45,11 @@ export default function RESTPage() {
             { code: `/api/v2/` },
             { code: `/api/internal/`, note: "Internal API" },
             { code: `/api/admin/`, note: "Admin API" },
-            { code: `/api/debug/`, note: "Debug endpoints" },
-            { code: `/api/test/`, note: "Test endpoints" },
+            { code: `/api/debug/`, note: "Debug endpoint'ler" },
+            { code: `/api/test/`, note: "Test endpoint'ler" },
             { code: `/api/swagger.json`, note: "Swagger/OpenAPI spec" },
             { code: `/api/openapi.json` },
-            { code: `/api/docs`, note: "API documentation" },
+            { code: `/api/docs`, note: "API dokümantasyonu" },
             { code: `/api/redoc` },
             { code: `/swagger-ui/`, note: "Swagger UI" },
             { code: `/api-docs/` },
@@ -47,7 +58,7 @@ export default function RESTPage() {
             { code: `/actuator/env`, note: "Environment variables" },
             { code: `/actuator/heapdump`, note: "Memory dump" },
             { code: `/actuator/mappings`, note: "Tüm endpoint'ler" },
-            { code: `/_debug/`, note: "Debug routes" },
+            { code: `/_debug/`, note: "Debug route'lar" },
             { code: `/api/health`, note: "Health check" },
             { code: `/api/status`, note: "Status endpoint" },
           ]}
@@ -55,7 +66,7 @@ export default function RESTPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">HTTP Method Tampering</h2>
+        <h2 id="method-tampering" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">HTTP Method Tampering</h2>
         <Callout type="info" title="Method Override">
           Bazı framework&apos;ler X-HTTP-Method-Override header&apos;ını destekler.
           PUT/DELETE izin verilmiyorsa POST + header deneyin.
@@ -64,7 +75,7 @@ export default function RESTPage() {
           title="Method Tampering Payloads"
           initialShow={8}
           payloads={[
-            { code: `GET → POST → PUT → PATCH → DELETE → OPTIONS → HEAD → TRACE`, note: "Tüm methodları dene" },
+            { code: `GET → POST → PUT → PATCH → DELETE → OPTIONS → HEAD → TRACE`, note: "Tüm method'ları dene" },
             { code: `X-HTTP-Method-Override: PUT`, note: "Method override header" },
             { code: `X-HTTP-Method: DELETE`, note: "Alternatif header" },
             { code: `X-Method-Override: PATCH` },
@@ -79,7 +90,7 @@ export default function RESTPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Content-Type Attacks</h2>
+        <h2 id="content-type" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Content-Type Attacks</h2>
         <PayloadList
           title="Content-Type Manipulation"
           initialShow={8}
@@ -97,7 +108,7 @@ export default function RESTPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Path Traversal & Access Control</h2>
+        <h2 id="path-traversal" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Path Traversal & Access Control</h2>
         <PayloadList
           title="Path Manipulation"
           initialShow={8}
@@ -115,7 +126,7 @@ export default function RESTPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Business Logic</h2>
+        <h2 id="business-logic" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Business Logic</h2>
         <PayloadList
           title="Business Logic Bypass"
           initialShow={8}
@@ -152,5 +163,6 @@ export default function RESTPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

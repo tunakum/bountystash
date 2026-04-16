@@ -5,12 +5,23 @@ import { Database, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "detection", title: "Detection / Polyglot", level: 2 },
+  { id: "jinja2", title: "Jinja2 (Python)", level: 2 },
+  { id: "twig", title: "Twig (PHP)", level: 2 },
+  { id: "freemarker", title: "Freemarker (Java)", level: 2 },
+  { id: "other-engines", title: "Other Engines", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function SSTIPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-yellow-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function SSTIPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Detection / Polyglot</h2>
+        <h2 id="detection" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Detection / Polyglot</h2>
         <p className="text-muted-foreground mb-4">
           Hangi template engine kullanıldığını belirlemek için polyglot payload&apos;lar kullanın.
           Matematiksel ifadeler ile injection tespit edilir.
@@ -56,7 +67,7 @@ export default function SSTIPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Jinja2 (Python)</h2>
+        <h2 id="jinja2" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Jinja2 (Python)</h2>
         <PayloadList
           title="Jinja2 RCE Payloads"
           initialShow={8}
@@ -75,7 +86,7 @@ export default function SSTIPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Twig (PHP)</h2>
+        <h2 id="twig" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Twig (PHP)</h2>
         <PayloadList
           title="Twig RCE Payloads"
           initialShow={6}
@@ -91,7 +102,7 @@ export default function SSTIPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Freemarker (Java)</h2>
+        <h2 id="freemarker" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Freemarker (Java)</h2>
         <PayloadList
           title="Freemarker RCE Payloads"
           initialShow={6}
@@ -106,7 +117,7 @@ export default function SSTIPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Other Engines</h2>
+        <h2 id="other-engines" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Other Engines</h2>
         <PayloadList
           title="Pebble / Velocity / ERB / Mako"
           initialShow={8}
@@ -138,5 +149,6 @@ export default function SSTIPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

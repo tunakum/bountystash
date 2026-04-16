@@ -5,12 +5,22 @@ import { Database, ArrowRight, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "basic-separators", title: "Basic Command Separators", level: 2 },
+  { id: "blind", title: "Blind Command Injection", level: 2 },
+  { id: "filter-bypass", title: "Filter Bypass", level: 2 },
+  { id: "vulnerable-params", title: "Common Vulnerable Parameters", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function CommandInjectionPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-yellow-400 text-sm font-medium mb-4">
@@ -29,7 +39,7 @@ export default function CommandInjectionPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Basic Command Separators</h2>
+        <h2 id="basic-separators" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Basic Command Separators</h2>
         <PayloadList
           title="Linux/Unix"
           initialShow={10}
@@ -64,7 +74,7 @@ export default function CommandInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Blind Command Injection</h2>
+        <h2 id="blind" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Blind Command Injection</h2>
         <Callout type="info" title="Dipnot">
           Komut çıktısı görünmüyorsa time-based veya out-of-band teknikler kullanın.
         </Callout>
@@ -98,7 +108,7 @@ export default function CommandInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Filter Bypass</h2>
+        <h2 id="filter-bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Filter Bypass</h2>
         <PayloadList
           title="Bypass Teknikleri"
           initialShow={10}
@@ -122,7 +132,7 @@ export default function CommandInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Common Vulnerable Parameters</h2>
+        <h2 id="vulnerable-params" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Common Vulnerable Parameters</h2>
         <PayloadList
           title="Hedef Parametreler"
           initialShow={8}
@@ -160,5 +170,6 @@ export default function CommandInjectionPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

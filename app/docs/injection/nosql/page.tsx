@@ -5,12 +5,23 @@ import { Database, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { PayloadList } from "@/components/docs/payload-list"
 import { Callout } from "@/components/docs/callout"
+import { TableOfContents } from "@/components/docs/table-of-contents"
+
+const tocItems = [
+  { id: "mongo-auth", title: "MongoDB Authentication Bypass", level: 2 },
+  { id: "data-extraction", title: "Data Extraction", level: 2 },
+  { id: "operators", title: "MongoDB Operators", level: 2 },
+  { id: "ssjs", title: "Server-Side JavaScript", level: 2 },
+  { id: "couchdb", title: "CouchDB Injection", level: 2 },
+]
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
 const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
 
 export default function NoSQLInjectionPage() {
   return (
+    <>
+    <TableOfContents items={tocItems} />
     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-yellow-400 text-sm font-medium mb-4">
@@ -30,7 +41,7 @@ export default function NoSQLInjectionPage() {
       </Callout>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">MongoDB Authentication Bypass</h2>
+        <h2 id="mongo-auth" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">MongoDB Authentication Bypass</h2>
         <PayloadList
           title="Login Bypass Payloads"
           initialShow={10}
@@ -52,7 +63,7 @@ export default function NoSQLInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Data Extraction</h2>
+        <h2 id="data-extraction" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Data Extraction</h2>
         <PayloadList
           title="Blind Data Extraction"
           initialShow={8}
@@ -70,7 +81,7 @@ export default function NoSQLInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">MongoDB Operators</h2>
+        <h2 id="operators" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">MongoDB Operators</h2>
         <PayloadList
           title="Operator Injection"
           initialShow={10}
@@ -91,7 +102,7 @@ export default function NoSQLInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">Server-Side JavaScript</h2>
+        <h2 id="ssjs" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Server-Side JavaScript</h2>
         <PayloadList
           title="SSJS Injection"
           initialShow={6}
@@ -107,7 +118,7 @@ export default function NoSQLInjectionPage() {
       </motion.section>
 
       <motion.section variants={fadeIn} className="mt-12">
-        <h2 className="text-2xl font-semibold text-foreground mb-4">CouchDB Injection</h2>
+        <h2 id="couchdb" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">CouchDB Injection</h2>
         <PayloadList
           title="CouchDB Payloads"
           initialShow={4}
@@ -139,5 +150,6 @@ export default function NoSQLInjectionPage() {
         </Link>
       </motion.div>
     </motion.div>
+    </>
   )
 }

@@ -7,7 +7,7 @@ import { TableOfContents } from "@/components/docs/table-of-contents"
 import { Callout } from "@/components/docs/callout"
 
 const tocItems = [
-  { id: "giris", title: "Giris", level: 2 },
+  { id: "giris", title: "Giriş", level: 2 },
   { id: "llm01", title: "LLM01: Prompt Injection", level: 2 },
   { id: "llm02", title: "LLM02: Insecure Output Handling", level: 2 },
   { id: "llm03", title: "LLM03: Training Data Poisoning", level: 2 },
@@ -40,16 +40,16 @@ const risks = [
     code: "LLM01",
     title: "Prompt Injection",
     severity: "kritik",
-    description: "Saldirganin, model girislerini manipule ederek LLM davranisini degistirmesi.",
-    impact: "Yetkisiz erisim, veri sizintisi, zararli kod calistirma",
+    description: "Saldırganın, model girişlerini manipüle ederek LLM davranışını değiştirmesi.",
+    impact: "Yetkisiz erişim, veri sızıntısı, zararlı kod çalıştırma",
     link: "/docs/ai/prompt-injection",
   },
   {
     id: "llm02",
-    code: "LLM02", 
+    code: "LLM02",
     title: "Insecure Output Handling",
-    severity: "yuksek",
-    description: "LLM ciktilarinin yeterince dogrulanmadan veya sanitize edilmeden kullanilmasi.",
+    severity: "yüksek",
+    description: "LLM çıktılarının yeterince doğrulanmadan veya sanitize edilmeden kullanılması.",
     impact: "XSS, SSRF, RCE gibi downstream zafiyetler",
     link: "/docs/ai/insecure-output",
   },
@@ -57,9 +57,9 @@ const risks = [
     id: "llm03",
     code: "LLM03",
     title: "Training Data Poisoning",
-    severity: "yuksek",
-    description: "Egitim verilerinin manipule edilmesiyle modelin yanlis veya zararli ciktilar uretmesi.",
-    impact: "Backdoor, bias, yanlis bilgi yayilimi",
+    severity: "yüksek",
+    description: "Eğitim verilerinin manipüle edilmesiyle modelin yanlış veya zararlı çıktılar üretmesi.",
+    impact: "Backdoor, bias, yanlış bilgi yayılımı",
     link: "/docs/ai/data-poisoning",
   },
   {
@@ -67,25 +67,25 @@ const risks = [
     code: "LLM04",
     title: "Model Denial of Service",
     severity: "orta",
-    description: "Modelin kaynaklarini tuketen veya asiri maliyet olusturan sorgular.",
-    impact: "Servis kesintisi, yuksek operasyonel maliyet",
+    description: "Modelin kaynaklarını tüketen veya aşırı maliyet oluşturan sorgular.",
+    impact: "Servis kesintisi, yüksek operasyonel maliyet",
     link: null,
   },
   {
     id: "llm05",
     code: "LLM05",
     title: "Supply Chain Vulnerabilities",
-    severity: "yuksek",
-    description: "Ucuncu parti model, veri seti veya plugin kullanimi kaynaklı zafiyetler.",
-    impact: "Backdoor, veri sizintisi, guvenilirlik kaybi",
+    severity: "yüksek",
+    description: "Üçüncü parti model, veri seti veya plugin kullanımı kaynaklı zafiyetler.",
+    impact: "Backdoor, veri sızıntısı, güvenilirlik kaybı",
     link: null,
   },
   {
     id: "llm06",
     code: "LLM06",
     title: "Sensitive Information Disclosure",
-    severity: "yuksek",
-    description: "LLM'in hassas bilgileri (PII, API anahtarlari, vb.) ifsa etmesi.",
+    severity: "yüksek",
+    description: "LLM'in hassas bilgileri (PII, API anahtarları, vb.) ifşa etmesi.",
     impact: "Veri ihlali, gizlilik ihlali, yasal sorunlar",
     link: null,
   },
@@ -93,9 +93,9 @@ const risks = [
     id: "llm07",
     code: "LLM07",
     title: "Insecure Plugin Design",
-    severity: "yuksek",
-    description: "LLM pluginlerinin yetersiz yetkilendirme veya giris dogrulamasi ile tasarlanmasi.",
-    impact: "RCE, veri erisimi, yetki yukseltme",
+    severity: "yüksek",
+    description: "LLM pluginlerinin yetersiz yetkilendirme veya giriş doğrulaması ile tasarlanması.",
+    impact: "RCE, veri erişimi, yetki yükseltme",
     link: null,
   },
   {
@@ -103,8 +103,8 @@ const risks = [
     code: "LLM08",
     title: "Excessive Agency",
     severity: "kritik",
-    description: "LLM'e gereksiz yetki veya otonom karar verme yetkisi taninmasi.",
-    impact: "Yetkisiz islemler, veri kaybi, sistem hasari",
+    description: "LLM'e gereksiz yetki veya otonom karar verme yetkisi tanınması.",
+    impact: "Yetkisiz işlemler, veri kaybı, sistem hasarı",
     link: null,
   },
   {
@@ -112,17 +112,17 @@ const risks = [
     code: "LLM09",
     title: "Overreliance",
     severity: "orta",
-    description: "LLM ciktilarinin insan dogrulamasi olmadan guvenilmesi.",
-    impact: "Yanlis bilgi, guvenlik aciklari, hatali kararlar",
+    description: "LLM çıktılarının insan doğrulaması olmadan güvenilmesi.",
+    impact: "Yanlış bilgi, güvenlik açıkları, hatalı kararlar",
     link: null,
   },
   {
     id: "llm10",
     code: "LLM10",
     title: "Model Theft",
-    severity: "yuksek",
-    description: "Ozel LLM modellerinin kopyalanmasi veya calınması.",
-    impact: "Fikri mulkiyet kaybi, rekabet avantaji kaybi",
+    severity: "yüksek",
+    description: "Özel LLM modellerinin kopyalanması veya çalınması.",
+    impact: "Fikri mülkiyet kaybı, rekabet avantajı kaybı",
     link: "/docs/ai/model-theft",
   },
 ]
@@ -131,7 +131,7 @@ const getSeverityColor = (severity: string) => {
   switch (severity) {
     case "kritik":
       return "bg-red-500/20 text-red-400 border-red-500/30"
-    case "yuksek":
+    case "yüksek":
       return "bg-orange-500/20 text-orange-400 border-orange-500/30"
     case "orta":
       return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
@@ -144,7 +144,7 @@ export default function OwaspLlmTop10Page() {
   return (
     <>
       <TableOfContents items={tocItems} />
-      
+
       <motion.article
         initial="initial"
         animate="animate"
@@ -161,23 +161,23 @@ export default function OwaspLlmTop10Page() {
             OWASP LLM Top 10
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            OWASP LLM Top 10, Large Language Model (LLM) uygulamalarinda en kritik 
-            guvenlik risklerini tanimlar. Bu liste, AI guvenlik arastirmacilari ve 
-            gelistiriciler icin onemli bir referans kaynagi olusturur.
+            OWASP LLM Top 10, Large Language Model (LLM) uygulamalarında en kritik
+            güvenlik risklerini tanımlar. Bu liste, AI güvenlik araştırmacıları ve
+            geliştiriciler için önemli bir referans kaynağı oluşturur.
           </p>
         </motion.div>
 
         <motion.div variants={fadeIn}>
           <Callout type="info" title="OWASP LLM Top 10 2025">
-            Bu dokumantasyon OWASP LLM Top 10 v2.0 (2025) surumuny temel alir. 
-            Guncel liste icin{" "}
-            <a 
-              href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" 
-              target="_blank" 
+            Bu dokümantasyon OWASP LLM Top 10 v2.0 (2025) sürümünü temel alır.
+            Güncel liste için{" "}
+            <a
+              href="https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline inline-flex items-center gap-1"
             >
-              OWASP resmi sayfasini
+              OWASP resmi sayfasını
               <ExternalLink className="w-3 h-3" />
             </a>
             {" "}ziyaret edin.
@@ -211,11 +211,11 @@ export default function OwaspLlmTop10Page() {
                         {risk.severity.toUpperCase()}
                       </span>
                     </div>
-                    
+
                     <p className="text-muted-foreground mb-3">
                       {risk.description}
                     </p>
-                    
+
                     <div className="flex items-center gap-2 text-sm">
                       <AlertTriangle className="w-4 h-4 text-orange-400" />
                       <span className="text-muted-foreground">
@@ -228,7 +228,7 @@ export default function OwaspLlmTop10Page() {
                         href={risk.link}
                         className="mt-4 inline-flex items-center gap-2 text-sm text-primary hover:underline"
                       >
-                        Detayli dokumanasyon
+                        Detaylı dokümantasyon
                         <ArrowRight className="w-4 h-4" />
                       </Link>
                     )}
@@ -243,24 +243,24 @@ export default function OwaspLlmTop10Page() {
         <motion.section variants={fadeIn} className="mt-10">
           <div className="rounded-xl border border-purple-500/20 bg-purple-500/5 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">
-              Onemli Noktalar
+              Önemli Noktalar
             </h3>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-start gap-2">
                 <span className="text-purple-400 mt-1">•</span>
-                <span>Prompt Injection (LLM01), LLM uygulamalari icin en kritik risk olarak tanimlanir.</span>
+                <span>Prompt Injection (LLM01), LLM uygulamaları için en kritik risk olarak tanımlanır.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-purple-400 mt-1">•</span>
-                <span>Excessive Agency (LLM08), ozellikle otonom agent sistemlerinde buyuk risk olusturur.</span>
+                <span>Excessive Agency (LLM08), özellikle otonom agent sistemlerinde büyük risk oluşturur.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-purple-400 mt-1">•</span>
-                <span>Output dogrulama ve input sanitizasyonu, bircok riski azaltmada kritik oneme sahiptir.</span>
+                <span>Output doğrulama ve input sanitizasyonu, birçok riski azaltmada kritik öneme sahiptir.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-purple-400 mt-1">•</span>
-                <span>Supply chain guvenliği, ucuncu parti model ve plugin kullaniminda dikkatle degerlendirilmelidir.</span>
+                <span>Supply chain güvenliği, üçüncü parti model ve plugin kullanımında dikkatle değerlendirilmelidir.</span>
               </li>
             </ul>
           </div>
