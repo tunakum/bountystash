@@ -16,14 +16,30 @@ const tocItems = [
   { id: "ruby", title: "Ruby Deserialization", level: 2 },
 ]
 
-const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
-const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 }
+}
+
+const stagger = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
 
 export default function DeserializationPage() {
   return (
-    <>
-    <TableOfContents items={tocItems} />
-    <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
+    <div className="relative">
+      <TableOfContents items={tocItems} />
+      <motion.article
+        className="prose prose-invert max-w-none"
+        initial="initial"
+        animate="animate"
+        variants={stagger}
+      >
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
           <Globe className="w-4 h-4" />
@@ -41,8 +57,11 @@ export default function DeserializationPage() {
         Java, PHP, Python, .NET ve Ruby&apos;de yaygındır.
       </Callout>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="java" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Java Deserialization</h2>
+      <motion.section variants={fadeIn} id="java" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 text-sm font-mono">01</span>
+          Java Deserialization
+        </h2>
         <p className="text-muted-foreground mb-4">
           Java ObjectInputStream kullanan uygulamalar hedef alınır. ysoserial aracı ile
           gadget chain&apos;ler oluşturulur.
@@ -66,8 +85,11 @@ export default function DeserializationPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="java-magic" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Java Magic Bytes</h2>
+      <motion.section variants={fadeIn} id="java-magic" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10 text-red-400 text-sm font-mono">02</span>
+          Java Magic Bytes
+        </h2>
         <Callout type="info" title="Tespit">
           Java serialized object&apos;ler &quot;ac ed 00 05&quot; (hex) veya &quot;rO0AB&quot; (base64) ile başlar.
           HTTP request/response&apos;larda bu pattern&apos;leri arayın.
@@ -86,8 +108,11 @@ export default function DeserializationPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="php" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">PHP Deserialization</h2>
+      <motion.section variants={fadeIn} id="php" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-yellow-500/10 text-yellow-400 text-sm font-mono">03</span>
+          PHP Deserialization
+        </h2>
         <p className="text-muted-foreground mb-4">
           PHP&apos;de unserialize() fonksiyonu ile magic method&apos;lar (__wakeup, __destruct, __toString)
           tetiklenerek RCE elde edilir.
@@ -112,8 +137,11 @@ export default function DeserializationPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="python" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Python Deserialization</h2>
+      <motion.section variants={fadeIn} id="python" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-mono">04</span>
+          Python Deserialization
+        </h2>
         <PayloadList
           title="Pickle / PyYAML Payloads"
           initialShow={6}
@@ -128,8 +156,11 @@ export default function DeserializationPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="dotnet" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">.NET Deserialization</h2>
+      <motion.section variants={fadeIn} id="dotnet" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500/10 text-orange-400 text-sm font-mono">05</span>
+          .NET Deserialization
+        </h2>
         <PayloadList
           title=".NET Gadget Chains"
           initialShow={6}
@@ -144,8 +175,11 @@ export default function DeserializationPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="ruby" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Ruby Deserialization</h2>
+      <motion.section variants={fadeIn} id="ruby" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-green-500/10 text-green-400 text-sm font-mono">06</span>
+          Ruby Deserialization
+        </h2>
         <PayloadList
           title="Ruby Marshal Payloads"
           initialShow={4}
@@ -166,17 +200,25 @@ export default function DeserializationPage() {
         5. ysoserial, phpggc, marshalsec araçlarını kullanın
       </Callout>
 
-      <motion.div variants={fadeIn} className="mt-16 flex items-center justify-between pt-8 border-t border-border/50">
-        <Link href="/docs/web/xxe" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          <span>XXE</span>
-        </Link>
-        <Link href="/docs/web/file-upload" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-          <span>File Upload</span>
-          <ArrowRight className="w-4 h-4" />
-        </Link>
+      <motion.div variants={fadeIn} className="mt-16 pt-8 border-t border-border/50">
+        <div className="flex justify-between items-center">
+          <Link
+            href="/docs/web/xxe"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            XXE
+          </Link>
+          <Link
+            href="/docs/web/file-upload"
+            className="text-primary hover:text-primary/80 transition-colors text-sm flex items-center gap-2"
+          >
+            File Upload
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </motion.div>
-    </motion.div>
-    </>
+      </motion.article>
+    </div>
   )
 }

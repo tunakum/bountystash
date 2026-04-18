@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight, Globe, Server, Brain, Database, Lock } from "lucide-react"
 import { TableOfContents } from "@/components/docs/table-of-contents"
+import { navGroups } from "@/lib/navigation"
 
 const tocItems = [
   { id: "zafiyetler", title: "Zafiyet Kategorileri", level: 2 },
@@ -28,88 +29,45 @@ const stagger = {
   },
 }
 
-const categories = [
-  {
-    id: "web",
+const categoryMeta: Record<string, { icon: typeof Globe; description: string; color: string; bgColor: string }> = {
+  web: {
     icon: Globe,
-    title: "Web Zafiyetleri",
     description: "XSS, SQL Injection, CSRF, SSRF ve daha fazlası.",
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
-    items: [
-      { title: "XSS (Cross-Site Scripting)", href: "/docs/web/xss" },
-      { title: "SQL Injection", href: "/docs/web/sql-injection" },
-      { title: "CSRF", href: "/docs/web/csrf" },
-      { title: "SSRF", href: "/docs/web/ssrf" },
-      { title: "XXE Injection", href: "/docs/web/xxe" },
-      { title: "Insecure Deserialization", href: "/docs/web/deserialization" },
-      { title: "File Upload", href: "/docs/web/file-upload" },
-    ],
   },
-  {
-    id: "api",
+  api: {
     icon: Server,
-    title: "API Zafiyetleri",
     description: "OWASP API Top 10 ve modern API güvenlik açıkları.",
     color: "text-green-400",
     bgColor: "bg-green-500/10",
-    items: [
-      { title: "BOLA / IDOR", href: "/docs/api/bola-idor" },
-      { title: "Broken Authentication", href: "/docs/api/broken-auth" },
-      { title: "BOPLA", href: "/docs/api/bopla" },
-      { title: "Mass Assignment", href: "/docs/api/mass-assignment" },
-      { title: "Rate Limiting", href: "/docs/api/rate-limiting" },
-      { title: "GraphQL Security", href: "/docs/api/graphql" },
-      { title: "REST API Security", href: "/docs/api/rest" },
-    ],
   },
-  {
-    id: "ai",
+  ai: {
     icon: Brain,
-    title: "AI / LLM Zafiyetleri",
     description: "OWASP LLM Top 10, prompt injection ve AI güvenlik riskleri.",
     color: "text-purple-400",
     bgColor: "bg-purple-500/10",
-    items: [
-      { title: "OWASP LLM Top 10", href: "/docs/ai/owasp-llm-top-10" },
-      { title: "Prompt Injection", href: "/docs/ai/prompt-injection" },
-      { title: "Jailbreaking", href: "/docs/ai/jailbreaking" },
-      { title: "Data Poisoning", href: "/docs/ai/data-poisoning" },
-      { title: "Model Theft", href: "/docs/ai/model-theft" },
-      { title: "Insecure Output", href: "/docs/ai/insecure-output" },
-    ],
   },
-  {
-    id: "injection",
+  injection: {
     icon: Database,
-    title: "Injection Zafiyetleri",
     description: "Command, LDAP, NoSQL ve template injection saldırıları.",
     color: "text-orange-400",
     bgColor: "bg-orange-500/10",
-    items: [
-      { title: "Command Injection", href: "/docs/injection/command" },
-      { title: "NoSQL Injection", href: "/docs/injection/nosql" },
-      { title: "SSTI (Template Injection)", href: "/docs/injection/ssti" },
-      { title: "LDAP Injection", href: "/docs/injection/ldap" },
-      { title: "Header Injection", href: "/docs/injection/header" },
-    ],
   },
-  {
-    id: "auth",
+  auth: {
     icon: Lock,
-    title: "Authentication",
     description: "OAuth, JWT, session ve kimlik doğrulama zafiyetleri.",
     color: "text-red-400",
     bgColor: "bg-red-500/10",
-    items: [
-      { title: "OAuth Vulnerabilities", href: "/docs/auth/oauth" },
-      { title: "JWT Attacks", href: "/docs/auth/jwt" },
-      { title: "Session Management", href: "/docs/auth/session" },
-      { title: "Password Reset Flaws", href: "/docs/auth/password-reset" },
-      { title: "2FA Bypass", href: "/docs/auth/2fa-bypass" },
-    ],
   },
-]
+}
+
+const categories = navGroups.map((group) => ({
+  id: group.id,
+  title: group.category,
+  items: group.items,
+  ...categoryMeta[group.id],
+}))
 
 export default function DocsPage() {
   return (

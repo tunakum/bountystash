@@ -19,8 +19,17 @@ const tocItems = [
 ]
 
 const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 }
+}
+
+const stagger = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
 }
 
 // Union-Based Payloads
@@ -162,13 +171,11 @@ export default function SQLInjectionPage() {
     <div className="relative">
       <TableOfContents items={tocItems} />
       
-      <motion.article 
+      <motion.article
         className="prose prose-invert max-w-none"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: { transition: { staggerChildren: 0.1 } }
-        }}
+        initial="initial"
+        animate="animate"
+        variants={stagger}
       >
         <motion.div variants={fadeIn} className="mb-8">
           <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
@@ -198,7 +205,10 @@ export default function SQLInjectionPage() {
         </motion.section>
 
         <motion.section variants={fadeIn} id="union-based" className="scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4">Union-Based SQLi</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 text-sm font-mono">01</span>
+            Union-Based SQLi
+          </h2>
           <p className="text-muted-foreground mb-4">
             UNION operatörü kullanılarak birden fazla SELECT sorgusu birleştirilir ve sonuçlar tek bir response&apos;ta döndürülür.
           </p>
@@ -215,7 +225,10 @@ export default function SQLInjectionPage() {
         </motion.section>
 
         <motion.section variants={fadeIn} id="error-based" className="scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4">Error-Based SQLi</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10 text-red-400 text-sm font-mono">02</span>
+            Error-Based SQLi
+          </h2>
           <p className="text-muted-foreground mb-4">
             Veritabanı hata mesajları içinde veri sızdırılır. Uygulama hata mesajlarını gösteriyorsa bu teknik çok etkilidir.
           </p>
@@ -232,7 +245,10 @@ export default function SQLInjectionPage() {
         </motion.section>
 
         <motion.section variants={fadeIn} id="blind-sqli" className="scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4">Blind SQLi</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-yellow-500/10 text-yellow-400 text-sm font-mono">03</span>
+            Blind SQLi
+          </h2>
           <p className="text-muted-foreground mb-4">
             Uygulama hata mesajı veya sorgu sonucu göstermediğinde kullanılır. Sayfa davranışındaki farklılıklara göre veri çıkarılır.
           </p>
@@ -249,7 +265,10 @@ export default function SQLInjectionPage() {
         </motion.section>
 
         <motion.section variants={fadeIn} id="time-based" className="scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4">Time-Based SQLi</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-mono">04</span>
+            Time-Based SQLi
+          </h2>
           <p className="text-muted-foreground mb-4">
             Boolean-based blind çalışmadığında response süresi farkına bakılarak veri çıkarılır. SLEEP() veya BENCHMARK() fonksiyonları kullanılır.
           </p>
@@ -266,7 +285,10 @@ export default function SQLInjectionPage() {
         </motion.section>
 
         <motion.section variants={fadeIn} id="auth-bypass" className="scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4">Authentication Bypass</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500/10 text-orange-400 text-sm font-mono">05</span>
+            Authentication Bypass
+          </h2>
           <p className="text-muted-foreground mb-4">
             Login formlarında kullanılan SQLi teknikleri. Şifre kontrolünü atlayarak sisteme giriş yapmayı sağlar.
           </p>
@@ -283,7 +305,10 @@ export default function SQLInjectionPage() {
         </motion.section>
 
         <motion.section variants={fadeIn} id="waf-bypass" className="scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4">WAF Bypass</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-green-500/10 text-green-400 text-sm font-mono">06</span>
+            WAF Bypass
+          </h2>
           <p className="text-muted-foreground mb-4">
             Web Application Firewall&apos;ları atlatmak için kullanılan encoding ve obfuscation teknikleri.
           </p>
@@ -300,7 +325,10 @@ export default function SQLInjectionPage() {
         </motion.section>
 
         <motion.section variants={fadeIn} id="out-of-band" className="scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4">Out-of-Band SQLi</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-pink-500/10 text-pink-400 text-sm font-mono">07</span>
+            Out-of-Band SQLi
+          </h2>
           <p className="text-muted-foreground mb-4">
             Verilerin DNS veya HTTP istekleri aracılığıyla dışarıya sızdırıldığı teknik. Blind SQLi&apos;nin hızlı alternatifi.
           </p>
@@ -316,22 +344,23 @@ export default function SQLInjectionPage() {
           />
         </motion.section>
 
-        {/* Navigation */}
-        <motion.div variants={fadeIn} className="flex items-center justify-between mt-16 pt-8 border-t border-border/50">
-          <Link 
-            href="/docs/web/xss" 
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>XSS</span>
-          </Link>
-          <Link 
-            href="/docs/web/csrf" 
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <span>CSRF</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+        <motion.div variants={fadeIn} className="mt-16 pt-8 border-t border-border/50">
+          <div className="flex justify-between items-center">
+            <Link
+              href="/docs/web/xss"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              XSS
+            </Link>
+            <Link
+              href="/docs/web/csrf"
+              className="text-primary hover:text-primary/80 transition-colors text-sm flex items-center gap-2"
+            >
+              CSRF
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </motion.div>
       </motion.article>
     </div>

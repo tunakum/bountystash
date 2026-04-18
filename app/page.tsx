@@ -3,11 +3,12 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import Link from "next/link"
 import { useRef } from "react"
-import { 
-  Shield, ArrowRight, Bug, Zap, 
+import {
+  ArrowRight, Bug, Zap,
   Globe, Server, Brain, Database, Lock, ChevronRight, Github
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { LogoMark } from "@/components/icons/logo-mark"
 
 const fadeIn = {
   initial: { opacity: 0, y: 30 },
@@ -94,15 +95,16 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-              <Shield className="w-4 h-4 text-primary" />
+              <LogoMark className="w-4 h-4 text-primary" />
             </div>
             <span className="font-semibold text-foreground">BountyStash</span>
           </Link>
           
           <div className="flex items-center gap-4">
             <Link 
-              href="https://github.com/tunakum/BountyStash" 
+              href="https://github.com/tunakum/BountyStash"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:flex items-center gap-2"
             >
               <Github className="w-4 h-4" />
@@ -202,9 +204,7 @@ export default function HomePage() {
 
         {/* Scroll Indicator */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          style={{ opacity }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
           <motion.div
@@ -236,7 +236,7 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {categories.map((category, i) => (
               <motion.div
                 key={category.title}
@@ -350,13 +350,14 @@ export default function HomePage() {
       <footer className="border-t border-border/50 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-primary" />
+            <LogoMark className="w-4 h-4 text-primary" />
             <span>BountyStash</span>
           </div>
           <div className="flex items-center gap-4">
             <Link 
-              href="https://github.com/tunakum/BountyStash" 
+              href="https://github.com/tunakum/BountyStash"
               target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-foreground transition-colors flex items-center gap-2"
             >
               <Github className="w-4 h-4" />

@@ -52,7 +52,7 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
           {title && (
             <div className="font-semibold text-foreground mb-1">{title}</div>
           )}
-          <div className="text-sm text-muted-foreground leading-relaxed">
+          <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
             {children}
           </div>
         </div>

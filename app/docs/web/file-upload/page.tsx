@@ -19,14 +19,30 @@ const tocItems = [
   { id: "race-condition", title: "Race Condition Upload", level: 2 },
 ]
 
-const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
-const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 }
+}
+
+const stagger = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
 
 export default function FileUploadPage() {
   return (
-    <>
-    <TableOfContents items={tocItems} />
-    <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
+    <div className="relative">
+      <TableOfContents items={tocItems} />
+      <motion.article
+        className="prose prose-invert max-w-none"
+        initial="initial"
+        animate="animate"
+        variants={stagger}
+      >
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
           <Globe className="w-4 h-4" />
@@ -44,8 +60,11 @@ export default function FileUploadPage() {
         Webshell yükleyerek sunucuda komut çalıştırılabilir.
       </Callout>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="php-ext" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">PHP Extension Bypass</h2>
+      <motion.section variants={fadeIn} id="php-ext" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 text-sm font-mono">01</span>
+          PHP Extension Bypass
+        </h2>
         <p className="text-muted-foreground mb-4">
           PHP dosya uzantısı kontrollerini atlatmak için kullanılan teknikler.
           Blacklist tabanlı filtrelerde alternatif uzantılar denenir.
@@ -74,8 +93,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="asp-jsp" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">ASP / JSP Extension Bypass</h2>
+      <motion.section variants={fadeIn} id="asp-jsp" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10 text-red-400 text-sm font-mono">02</span>
+          ASP / JSP Extension Bypass
+        </h2>
         <PayloadList
           title="ASP & JSP Payloads"
           initialShow={6}
@@ -94,8 +116,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="content-type" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Content-Type Bypass</h2>
+      <motion.section variants={fadeIn} id="content-type" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-yellow-500/10 text-yellow-400 text-sm font-mono">03</span>
+          Content-Type Bypass
+        </h2>
         <p className="text-muted-foreground mb-4">
           Sunucu Content-Type header&apos;ını kontrol ediyorsa, geçerli MIME type&apos;lar kullanılır.
         </p>
@@ -114,8 +139,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="magic-bytes" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Magic Bytes / File Signatures</h2>
+      <motion.section variants={fadeIn} id="magic-bytes" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-mono">04</span>
+          Magic Bytes / File Signatures
+        </h2>
         <Callout type="info" title="Tespit">
           Sunucu dosyanın ilk byte&apos;larını kontrol ediyorsa, geçerli magic byte&apos;lar ile
           payload&apos;ı birleştirin. Dosya hem geçerli resim hem geçerli PHP olabilir.
@@ -135,8 +163,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="webshell" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Webshell Patterns</h2>
+      <motion.section variants={fadeIn} id="webshell" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500/10 text-orange-400 text-sm font-mono">05</span>
+          Webshell Patterns
+        </h2>
         <Callout type="info" title="Not">
           Webshell payload&apos;ları güvenlik yazılımları tarafından algılanabilir.
           Gerçek testlerde obfuscation ve encoding teknikleri kullanılmalıdır.
@@ -157,8 +188,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="svg-xss" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">SVG XSS Payloads</h2>
+      <motion.section variants={fadeIn} id="svg-xss" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-green-500/10 text-green-400 text-sm font-mono">06</span>
+          SVG XSS Payloads
+        </h2>
         <p className="text-muted-foreground mb-4">
           SVG dosyaları XML tabanlıdır ve JavaScript çalıştırabilir. Resim olarak yüklenip
           tarayıcıda render edildiğinde XSS tetiklenir.
@@ -178,8 +212,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="htaccess" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">.htaccess / Config Override</h2>
+      <motion.section variants={fadeIn} id="htaccess" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-pink-500/10 text-pink-400 text-sm font-mono">07</span>
+          .htaccess / Config Override
+        </h2>
         <PayloadList
           title="Config File Upload"
           initialShow={5}
@@ -193,8 +230,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="filename" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Filename Tricks</h2>
+      <motion.section variants={fadeIn} id="filename" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 text-sm font-mono">08</span>
+          Filename Tricks
+        </h2>
         <PayloadList
           title="Filename Manipulation"
           initialShow={8}
@@ -211,8 +251,11 @@ export default function FileUploadPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="race-condition" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Race Condition Upload</h2>
+      <motion.section variants={fadeIn} id="race-condition" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 text-sm font-mono">09</span>
+          Race Condition Upload
+        </h2>
         <p className="text-muted-foreground mb-4">
           Bazı uygulamalar dosyayı önce kaydedip sonra kontrol eder. Bu kısa zaman aralığında
           dosyaya erişilerek shell çalıştırılabilir.
@@ -237,17 +280,25 @@ export default function FileUploadPage() {
         7. .htaccess/web.config override deneyin
       </Callout>
 
-      <motion.div variants={fadeIn} className="mt-16 flex items-center justify-between pt-8 border-t border-border/50">
-        <Link href="/docs/web/deserialization" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          <span>Deserialization</span>
-        </Link>
-        <Link href="/docs/api/bola" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-          <span>BOLA/IDOR</span>
-          <ArrowRight className="w-4 h-4" />
-        </Link>
+      <motion.div variants={fadeIn} className="mt-16 pt-8 border-t border-border/50">
+        <div className="flex justify-between items-center">
+          <Link
+            href="/docs/web/deserialization"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Deserialization
+          </Link>
+          <Link
+            href="/docs/api/bola-idor"
+            className="text-primary hover:text-primary/80 transition-colors text-sm flex items-center gap-2"
+          >
+            BOLA/IDOR
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </motion.div>
-    </motion.div>
-    </>
+      </motion.article>
+    </div>
   )
 }

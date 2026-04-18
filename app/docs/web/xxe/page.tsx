@@ -16,14 +16,30 @@ const tocItems = [
   { id: "different-contexts", title: "XXE in Different Contexts", level: 2 },
 ]
 
-const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
-const stagger = { visible: { transition: { staggerChildren: 0.05 } } }
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 }
+}
+
+const stagger = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
 
 export default function XXEPage() {
   return (
-    <>
-    <TableOfContents items={tocItems} />
-    <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl">
+    <div className="relative">
+      <TableOfContents items={tocItems} />
+      <motion.article
+        className="prose prose-invert max-w-none"
+        initial="initial"
+        animate="animate"
+        variants={stagger}
+      >
       <motion.div variants={fadeIn} className="mb-8">
         <div className="flex items-center gap-2 text-blue-400 text-sm font-medium mb-4">
           <Globe className="w-4 h-4" />
@@ -40,8 +56,11 @@ export default function XXEPage() {
         Ancak eski sistemler ve yanlış yapılandırmalar hâlâ yaygındır.
       </Callout>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="temel-xxe" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Temel XXE Payloadları</h2>
+      <motion.section variants={fadeIn} id="temel-xxe" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 text-sm font-mono">01</span>
+          Temel XXE Payloadları
+        </h2>
         <PayloadList
           title="File Read (Linux)"
           initialShow={8}
@@ -108,8 +127,11 @@ export default function XXEPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="blind-xxe" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Blind XXE (Out-of-Band)</h2>
+      <motion.section variants={fadeIn} id="blind-xxe" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10 text-red-400 text-sm font-mono">02</span>
+          Blind XXE (Out-of-Band)
+        </h2>
         <PayloadList
           title="OOB XXE"
           initialShow={5}
@@ -146,8 +168,11 @@ export default function XXEPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="xxe-ssrf" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">XXE to SSRF</h2>
+      <motion.section variants={fadeIn} id="xxe-ssrf" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-yellow-500/10 text-yellow-400 text-sm font-mono">03</span>
+          XXE to SSRF
+        </h2>
         <PayloadList
           title="SSRF via XXE"
           initialShow={5}
@@ -176,8 +201,11 @@ export default function XXEPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="dos" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">DoS Payloadları</h2>
+      <motion.section variants={fadeIn} id="dos" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 text-sm font-mono">04</span>
+          DoS Payloadları
+        </h2>
         <PayloadList
           title="Billion Laughs / Entity Expansion"
           initialShow={3}
@@ -205,8 +233,11 @@ export default function XXEPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="bypass" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">Bypass Teknikleri</h2>
+      <motion.section variants={fadeIn} id="bypass" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500/10 text-orange-400 text-sm font-mono">05</span>
+          Bypass Teknikleri
+        </h2>
         <PayloadList
           title="XXE Bypass"
           initialShow={8}
@@ -245,8 +276,11 @@ export default function XXEPage() {
         />
       </motion.section>
 
-      <motion.section variants={fadeIn} className="mt-12">
-        <h2 id="different-contexts" className="text-2xl font-semibold text-foreground mb-4 scroll-mt-20">XXE in Different Contexts</h2>
+      <motion.section variants={fadeIn} id="different-contexts" className="scroll-mt-20">
+        <h2 className="text-2xl font-semibold text-foreground mt-12 mb-4 flex items-center gap-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-green-500/10 text-green-400 text-sm font-mono">06</span>
+          XXE in Different Contexts
+        </h2>
         <PayloadList
           title="Farklı Format XXE"
           initialShow={5}
@@ -272,23 +306,31 @@ export default function XXEPage() {
       </motion.section>
 
       <Callout type="tip" title="Test İpuçları">
-        1. XML kabul eden tüm endpoint&apos;leri test edin
-        2. Content-Type&apos;ı application/xml yaparak JSON&apos;ı XML&apos;e çevirin
-        3. File upload&apos;larda SVG, DOCX, XLSX dosyaları deneyin
+        1. XML kabul eden tüm endpoint&apos;leri test edin{"\n"}
+        2. Content-Type&apos;ı application/xml yaparak JSON&apos;ı XML&apos;e çevirin{"\n"}
+        3. File upload&apos;larda SVG, DOCX, XLSX dosyaları deneyin{"\n"}
         4. Blind XXE için Burp Collaborator kullanın
       </Callout>
 
-      <motion.div variants={fadeIn} className="mt-16 flex items-center justify-between pt-8 border-t border-border/50">
-        <Link href="/docs/web/ssrf" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          <span>SSRF</span>
-        </Link>
-        <Link href="/docs/web/deserialization" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-          <span>Deserialization</span>
-          <ArrowRight className="w-4 h-4" />
-        </Link>
+      <motion.div variants={fadeIn} className="mt-16 pt-8 border-t border-border/50">
+        <div className="flex justify-between items-center">
+          <Link
+            href="/docs/web/ssrf"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            SSRF
+          </Link>
+          <Link
+            href="/docs/web/deserialization"
+            className="text-primary hover:text-primary/80 transition-colors text-sm flex items-center gap-2"
+          >
+            Deserialization
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </motion.div>
-    </motion.div>
-    </>
+      </motion.article>
+    </div>
   )
 }

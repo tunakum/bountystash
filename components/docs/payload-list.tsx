@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, Copy, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -25,9 +25,13 @@ export function PayloadList({ title, payloads, initialShow = 5, className }: Pay
   const hasMore = payloads.length > initialShow
 
   const copyToClipboard = async (text: string, index: number) => {
-    await navigator.clipboard.writeText(text)
-    setCopiedIndex(index)
-    setTimeout(() => setCopiedIndex(null), 2000)
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedIndex(index)
+      setTimeout(() => setCopiedIndex(null), 2000)
+    } catch {
+      // clipboard unavailable
+    }
   }
 
   return (
@@ -112,9 +116,13 @@ export function PayloadInline({ code, note }: { code: string; note?: string }) {
   const [copied, setCopied] = useState(false)
 
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // clipboard unavailable
+    }
   }
 
   return (
