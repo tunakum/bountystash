@@ -65,7 +65,7 @@ export function PayloadList({ title, payloads, initialShow = 5, className }: Pay
                       e.stopPropagation()
                       copyToClipboard(payload.code, index)
                     }}
-                    className="p-2 m-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-secondary/50"
+                    className="p-2 m-1 rounded-md opacity-100 md:opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-secondary/50"
                     aria-label="Payload kopyala"
                   >
                     {copiedIndex === index ? (

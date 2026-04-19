@@ -2,21 +2,33 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Github, ExternalLink } from "lucide-react"
+import { Github, ExternalLink, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { breadcrumbMap } from "@/lib/navigation"
+import { useMobileOpen, toggleMobileOpen } from "./sidebar-store"
 
 export function Header() {
   const pathname = usePathname()
   const breadcrumb = breadcrumbMap[pathname]
   const isDocsRoot = pathname === "/docs"
   const isUnknownDocs = !breadcrumb && !isDocsRoot && pathname.startsWith("/docs")
+  const mobileOpen = useMobileOpen()
 
   return (
     <header className="fixed top-0 left-0 lg:left-64 right-0 z-30 h-14 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="flex items-center justify-between h-full px-4 lg:px-6 pl-14 lg:pl-6">
+      <div className="flex items-center justify-between h-full px-4 lg:px-6">
+        <div className="flex items-center gap-2 min-w-0">
+          <button
+            type="button"
+            onClick={toggleMobileOpen}
+            aria-expanded={mobileOpen}
+            aria-label="Menüyü aç/kapat"
+            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-secondary/50 text-foreground"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
         {/* Breadcrumb */}
-        <nav className="flex items-center text-sm text-muted-foreground">
+        <nav className="flex items-center text-sm text-muted-foreground min-w-0">
           <Link href="/docs" className="hover:text-foreground transition-colors">
             Dokümantasyon
           </Link>
@@ -35,6 +47,7 @@ export function Header() {
             </>
           )}
         </nav>
+        </div>
 
         {/* Actions */}
         <div className="flex items-center gap-2">

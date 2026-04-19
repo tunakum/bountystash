@@ -4,20 +4,22 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { ChevronRight, Search, Bug, Globe, Menu, X, Brain, Server, Database, Lock } from "lucide-react"
+import { ChevronRight, Search, Bug, Globe, X, Brain, Server, Database, Lock } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { LogoMark } from "@/components/icons/logo-mark"
 import { navGroups } from "@/lib/navigation"
+import { useMobileOpen, setMobileOpen } from "./sidebar-store"
 
-// Hook to detect if user is on Mac
-function useIsMac() {
+function useIsMacMounted() {
+  const [mounted, setMounted] = useState(false)
   const [isMac, setIsMac] = useState(false)
 
   useEffect(() => {
     setIsMac(navigator.userAgent.includes('Mac'))
+    setMounted(true)
   }, [])
 
-  return isMac
+  return { mounted, isMac }
 }
 
 const groupIcons: Record<string, React.ReactNode> = {
@@ -95,7 +97,7 @@ function NavSection({ title, icon, items, onNavigate }: NavSectionProps) {
 }
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
-  const isMac = useIsMac()
+  const { mounted, isMac } = useIsMacMounted()
 
   return (
     <div className="flex h-full flex-col">
@@ -115,7 +117,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           <Search className="w-4 h-4 mr-2" />
           <span>Ara...</span>
           <kbd className="ml-auto text-xs bg-background/50 px-1.5 py-0.5 rounded border border-border/50 font-mono">
-            {isMac ? "⌘K" : "Ctrl+K"}
+            {mounted ? (isMac ? "⌘K" : "Ctrl+K") : "\u00A0"}
           </kbd>
         </button>
       </div>
@@ -145,21 +147,10 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 export function Sidebar() {
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const mobileOpen = useMobileOpen()
 
   return (
     <>
-      {/* Mobile menu button */}
-      {!mobileOpen && (
-        <button
-          onClick={() => setMobileOpen(true)}
-          className="fixed top-3 left-3 z-50 lg:hidden p-2.5 rounded-lg bg-card border border-border/50 text-foreground"
-          aria-label="Open menu"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
-      )}
-
       {/* Desktop sidebar */}
       <aside className="hidden lg:block fixed left-0 top-0 z-40 h-screen w-64 border-r border-border/50 bg-sidebar">
         <SidebarContent />

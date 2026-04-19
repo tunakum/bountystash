@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
 
 interface TocItem {
   id: string
@@ -16,15 +15,28 @@ interface TableOfContentsProps {
 
 export function TableOfContents({ items }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("")
+  const intersectingRef = useRef<Set<string>>(new Set())
 
   useEffect(() => {
+    intersectingRef.current.clear()
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
+          if (entry.isIntersecting) intersectingRef.current.add(entry.target.id)
+          else intersectingRef.current.delete(entry.target.id)
+        })
+        let topId = ""
+        let topY = Infinity
+        intersectingRef.current.forEach((id) => {
+          const el = document.getElementById(id)
+          if (!el) return
+          const y = el.getBoundingClientRect().top
+          if (y < topY) {
+            topY = y
+            topId = id
           }
         })
+        if (topId) setActiveId(topId)
       },
       { rootMargin: "-80px 0% -80% 0%" }
     )
@@ -40,7 +52,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   if (items.length === 0) return null
 
   return (
-    <div className="hidden xl:block fixed right-0 top-14 w-64 h-[calc(100vh-3.5rem)] p-6">
+    <div className="hidden xl:block fixed right-0 top-14 w-64 max-h-[calc(100vh-3.5rem)] overflow-y-auto p-6">
       <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">
         Bu Sayfada
       </div>

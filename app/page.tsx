@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, useReducedMotion, MotionConfig } from "framer-motion"
 import Link from "next/link"
 import { useRef } from "react"
 import {
@@ -75,15 +75,19 @@ const stats = [
 
 export default function HomePage() {
   const heroRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useReducedMotion()
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   })
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100])
+  const opacityRaw = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const yRaw = useTransform(scrollYProgress, [0, 0.5], [0, 100])
+  const opacity = prefersReducedMotion ? 1 : opacityRaw
+  const y = prefersReducedMotion ? 0 : yRaw
 
   return (
+    <MotionConfig reducedMotion={prefersReducedMotion ? "always" : "never"}>
     <div className="min-h-screen bg-background">
       {/* Navigation */}
       <motion.nav
@@ -190,7 +194,7 @@ export default function HomePage() {
             {/* Stats */}
             <motion.div 
               variants={fadeIn}
-              className="flex items-center justify-center gap-12 mt-16"
+              className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 mt-16"
             >
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
@@ -236,7 +240,7 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 max-w-7xl mx-auto">
             {categories.map((category, i) => (
               <motion.div
                 key={category.title}
@@ -370,5 +374,6 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
+    </MotionConfig>
   )
 }

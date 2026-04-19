@@ -28,8 +28,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="tr" data-scroll-behavior="smooth" className={`${inter.variable} ${geistMono.variable} bg-background`}>
+    <html lang="tr" data-scroll-behavior="smooth" className={`dark ${inter.variable} ${geistMono.variable} bg-background`}>
       <body className="font-sans antialiased">
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-3 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground">
+          Skip to content
+        </a>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

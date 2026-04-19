@@ -38,7 +38,7 @@ export function CodeBlock({ code, language = "bash", filename, showLineNumbers =
           </div>
           <motion.button
             onClick={copyToClipboard}
-            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-secondary"
+            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground focus-visible:opacity-100 transition-colors px-2 py-1 rounded hover:bg-secondary opacity-100 md:opacity-0 group-hover:opacity-100"
             whileTap={{ scale: 0.95 }}
           >
             {copied ? (
