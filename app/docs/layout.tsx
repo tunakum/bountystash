@@ -15,11 +15,11 @@ export default function DocsLayout({
       <Sidebar />
       <Header />
       <SearchModal />
-      <main id="main" className="lg:pl-64 pt-14">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 xl:mr-64">
+      <main id="main" className="lg:pl-64 xl:pr-64 pt-14">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
           {children}
         </div>
-        <footer className="border-t border-border/50 py-8 px-6 xl:mr-64">
+        <footer className="border-t border-border/50 py-8 px-6">
           <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <LogoMark className="w-4 h-4 text-primary" />

@@ -12,13 +12,29 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono'
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://bountystash.vercel.app'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'BountyStash | Güvenlik Zafiyetleri Dokümantasyonu',
   description: 'Web, API ve AI güvenlik zafiyetleri için kapsamlı Türkçe dokümantasyon. XSS, SQL Injection, Prompt Injection payload ve bypass teknikleri.',
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
     ],
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'tr_TR',
+    url: '/',
+    siteName: 'BountyStash',
+    title: 'BountyStash | Güvenlik Zafiyetleri Dokümantasyonu',
+    description: 'Web, API ve AI güvenlik zafiyetleri için kapsamlı Türkçe dokümantasyon.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BountyStash | Güvenlik Zafiyetleri Dokümantasyonu',
+    description: 'Web, API ve AI güvenlik zafiyetleri için kapsamlı Türkçe dokümantasyon.',
   },
 }
 

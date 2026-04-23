@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Github, ExternalLink, Menu } from "lucide-react"
+import { ExternalLink, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { breadcrumbMap } from "@/lib/navigation"
 import { useMobileOpen, toggleMobileOpen } from "./sidebar-store"
@@ -51,15 +51,6 @@ export function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Link
-            href="https://github.com/tunakum/BountyStash"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:flex items-center gap-2 px-3"
-          >
-            <Github className="w-4 h-4" />
-            <span className="hidden md:inline">GitHub</span>
-          </Link>
           <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground" asChild>
             <Link href="https://github.com/tunakum/BountyStash" target="_blank" rel="noopener noreferrer">
               <span className="hidden sm:inline">Katkıda Bulun</span>
